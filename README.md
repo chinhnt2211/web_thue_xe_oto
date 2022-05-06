@@ -7,7 +7,7 @@
 ## Chức năng từng đối tượng
 *A. Quản trị viên*
 - Đăng nhập
-- Quản lý trang thông tin 
+- Quản lý trang thông tin: banner,...
 - Quản lý nhân viên
 - Quản lý người dùng
 - Quản lý xe đạp
