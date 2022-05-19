@@ -1,7 +1,7 @@
 # Phân tích trang web quản lý cho thuê xe đạp công cộng
 
 ## Đối tượng sử dụng
-- Admin
+- Quản trị viên
 - Nhân viên
 - Người dùng
 ## Chức năng từng đối tượng
