@@ -12,13 +12,14 @@
 - Quản lý người dùng
 - Quản lý xe đạp
 - Quản lý trạm
-- Xem doanh thu, chi phí mua và sửa xe 
-- Quản lý thống kê
+- Quản lý lịch sử ra vào 
+- Quản lý giá thuê
+- Quản lý loại phạt 
+- Xem doanh thu, chi phí mua và sửa xe
 
 *B. Nhân viên*
-
 - Đăng nhập
-- Xem các nhiệm vụ được giao
+- Bảo dưỡng xe, cập nhật phí sửa chữa
 - Quản lý các xe trong trạm cụ thể
 
 *C. Người dùng*
@@ -26,6 +27,6 @@
 - Đăng nhập
 - Tìm kiếm trạm và kiểm tra thông tin xe trong trạm 
 - Quản lý ví 
-- Xem thông tin : Quãng đường đã đi, thời gian đã đi, lịch sử thuê,..
+- Xem thông tin : lịch sử thuê, lịch sử giao dịch ...
 - Thuê xe đạp bằng quét mã QR hoặc chọn trực tiếp trên web
 - Nạp tiền
