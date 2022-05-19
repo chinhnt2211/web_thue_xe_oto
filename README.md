@@ -19,7 +19,7 @@
 
 *B. Nhân viên*
 - Đăng nhập
-- Bảo dưỡng xe, cập nhật phí sửa chữa
+- Bảo dưỡng xe, cập nhật lịch sử sửa chữa và phí
 - Quản lý các xe trong trạm cụ thể
 
 *C. Người dùng*
