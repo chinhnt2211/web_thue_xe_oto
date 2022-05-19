@@ -28,5 +28,6 @@
 - Tìm kiếm trạm và kiểm tra thông tin xe trong trạm 
 - Quản lý ví 
 - Xem thông tin : lịch sử thuê, lịch sử giao dịch ...
-- Thuê xe đạp bằng quét mã QR hoặc chọn trực tiếp trên web
+- Thuê xe đạp bằng quét mã QR
+- Thanh toán thuê xe đạp
 - Nạp tiền
