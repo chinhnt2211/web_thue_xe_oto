@@ -7,27 +7,24 @@
 ## Chức năng từng đối tượng
 *A. Quản trị viên*
 - Đăng nhập
-- Quản lý trang thông tin: banner,...
+- Quản lý trang thông tin 
 - Quản lý nhân viên
 - Quản lý người dùng
-- Quản lý xe đạp
+- Quản lý xe
 - Quản lý trạm
-- Quản lý lịch sử ra vào 
-- Quản lý giá thuê
-- Quản lý loại phạt 
-- Xem doanh thu, chi phí mua và sửa xe
+- Duyệt phí sửa xe 
+- Thống kê (doanh thu, chi phí,...)
 
 *B. Nhân viên*
 - Đăng nhập
-- Bảo dưỡng xe, cập nhật lịch sử sửa chữa và phí
+- Duyệt hợp đồng cho thuê 
+- Gửi yêu cầu sửa chữa xe và phụ phí
 - Quản lý các xe trong trạm cụ thể
+- Quản lý đặt xe của khách
 
 *C. Người dùng*
-- Đăng ký
-- Đăng nhập
-- Tìm kiếm trạm và kiểm tra thông tin xe trong trạm 
-- Quản lý ví 
-- Xem thông tin : lịch sử thuê, lịch sử giao dịch ...
-- Thuê xe đạp bằng quét mã QR
-- Thanh toán thuê xe đạp
-- Nạp tiền
+- Đăng ký, Đăng nhập
+- Tìm kiếm xe 
+- Xem thông tin : lịch sử thuê, hóa đơn, …
+- Đặt lịch thuê xe
+
