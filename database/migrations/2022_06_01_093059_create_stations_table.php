@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('address')->unique();
             $table->string('phone_number',15);
             $table->integer('capacity');
+            $table->string('city');
+            $table->string('district');
         });
     }
 
