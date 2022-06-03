@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('stations', function (Blueprint $table) {
+        Schema::create('vehicle_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('address')->unique();
-            $table->string('phone_number',15);
-            $table->integer('capacity');
-            $table->string('city');
-            $table->string('district');
+            $table->tinyInteger('seat_capacity');
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stations');
+        Schema::dropIfExists('vehicle_types');
     }
 };

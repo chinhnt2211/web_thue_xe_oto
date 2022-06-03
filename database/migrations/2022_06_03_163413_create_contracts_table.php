@@ -19,9 +19,10 @@ return new class extends Migration
             $table->foreignId('admin_id')->constrained();
             $table->foreignId('vehicle_id')->constrained();
             $table->tinyInteger('status');
-            $table->string('image_url');
-            $table->integer('price',false,true);
-            $table->tinyInteger('deposit_percent')->nullable();
+            $table->unsignedBigInteger('contract_image')->nullable();
+            $table->foreign('contract_image')->references('id')->on('images');
+            $table->unsignedInteger('price');
+            $table->unsignedTinyInteger('deposit_percent')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();
