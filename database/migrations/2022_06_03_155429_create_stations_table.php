@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bills', function (Blueprint $table) {
-            $table->foreignId('contract_id')->constrained();
-            $table->tinyInteger('type');
-            $table->integer('total', false, true);
-            $table->text('description');
-            $table->timestamps();
+        Schema::create('stations', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->unsignedBigInteger('address');
+            $table->foreign('address')->references('id')->on('locations');
+            $table->string('phone_number',15);
+            $table->tinyInteger('capacity');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('stations');
     }
 };

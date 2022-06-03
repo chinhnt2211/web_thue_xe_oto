@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->tinyInteger('status')->unique();
+            $table->string('name');
+            $table->tinyInteger('status');
             $table->text('description');
             $table->string('license_number',15);
-            $table->tinyInteger('seat_capacity');
-            $table->integer('price',false,true);
-            $table->integer('rent_price',false,true);
+            $table->unsignedInteger('price');
+            $table->unsignedInteger('rent_price');
+            $table->unsignedInteger('fine');
             $table->foreignId('station_id')->constrained();
             $table->foreignId('brand_id')->constrained();
+            $table->foreignId('vehicle_type_id')->constrained();
         });
     }
 
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('vehicle');
     }
 };

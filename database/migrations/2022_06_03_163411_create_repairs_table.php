@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('repairs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_id')->constrained();
             $table->foreignId('admin_id')->constrained();
-            $table->integer('fee', false, true)->nullable();
+            $table->foreignId('vehicle_id')->constrained();
+            $table->unsignedInteger('fee');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('description');
+            $table->text('description');
             $table->tinyInteger('status');
             $table->timestamps();
         });
