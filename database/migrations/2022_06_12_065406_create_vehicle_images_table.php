@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('stations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('address');
-            $table->foreign('address')->references('id')->on('locations');
-            $table->string('phone_number',15);
-            $table->Integer('capacity');
+        Schema::create('vehicle_images', function (Blueprint $table) {
+            $table->foreignId('vehicle_id')->constrained();
+            $table->foreignId('image_id')->constrained();
+
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stations');
+        Schema::dropIfExists('vehicle_images');
     }
 };

@@ -1,10 +1,9 @@
-# Phân tích trang web quản lý cho thuê xe đạp công cộng
-
-## Đối tượng sử dụng
+# Phân tích trang web quản lý cho thuê ô tô
+### 1. Đối tượng sử dụng
 - Quản trị viên
 - Nhân viên
 - Người dùng
-## Chức năng từng đối tượng
+### 2. Chức năng từng đối tượng
 *A. Quản trị viên*
 - Đăng nhập
 - Quản lý trang thông tin 
@@ -27,4 +26,13 @@
 - Tìm kiếm xe 
 - Xem thông tin : lịch sử thuê, hóa đơn, …
 - Đặt lịch thuê xe
+
+### 3. Thông tin Cơ Sở Dữ Liệu
+*A. Sơ đồ thực thể*
+<br>
+![Sơ đồ thực thể](./document/So_do_thuc_the.png)
+<br>
+*B. Cơ sở dữ liệu*
+<br>
+![Cơ sở dữ liệu](./document/Co_so_du_lieu.png)
 
