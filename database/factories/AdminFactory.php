@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,12 @@ class AdminFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'full_name' => $this->faker->name(),
+            'email' => $this->faker->safeEmail(),
+            'address' => $this->faker->unique()->randomElement(Location::query()->where('type', '=',0)->get('id')),
+            'phone_number' => $this->faker->regexify('0[0-9]{9}'),
+            'hashed_password' => $this->faker->password(),
+            'cic_number' => $this->faker->regexify('0[0-9]{11}')
         ];
     }
 }

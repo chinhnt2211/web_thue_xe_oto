@@ -17,7 +17,10 @@ class LocationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'type' =>$this->faker->numberBetween(0,1),
+            'city' =>$this->faker->regexify('(0[1-9]|[1-8][0-9]|9[0-6])'),
+            'district' =>$this->faker->regexify('(0[0-9][1-9]|[1-8][0-9][0-9]|9[1-6][0-9]|97[0-3])'),
+            'subdistrict' =>$this->faker->regexify('(0[0-9][0-9][0-9][1-9]|[1-2][0-9][0-9][0-9][0-9]|3[0-1][0-9][0-9][0-9]|32[0-1][0-9][0-9]|322[0-3][0-9]|3224[0-8])')
         ];
     }
 }

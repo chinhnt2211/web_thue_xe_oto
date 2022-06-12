@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Location;
+use App\Models\Station;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+//        Location::factory(100)->create();
+//        Station::factory(20)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
