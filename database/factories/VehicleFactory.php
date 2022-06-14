@@ -17,7 +17,6 @@ class VehicleFactory extends Factory
     public function definition()
     {
         return [
-            //
         ];
     }
 }

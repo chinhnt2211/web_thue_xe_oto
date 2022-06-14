@@ -17,7 +17,8 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-
+            'type' => $this->faker->numberBetween(0,3),
+            'link' => $this->faker->imageUrl()
         ];
     }
 }
