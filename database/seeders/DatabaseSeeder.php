@@ -8,7 +8,7 @@ use App\Models\Image;
 use App\Models\Location;
 use App\Models\Station;
 use App\Models\User;
-use App\Models\VehicleType;
+use App\Models\SeatingCapacity;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -79,8 +79,8 @@ class DatabaseSeeder extends Seeder
             'status' => 0,
         ]);
         Brand::factory(10)->create();
-        VehicleType::factory()->create([ 'seat_capacity'=> 4 ]);
-        VehicleType::factory()->create([ 'seat_capacity'=> 5 ]);
-        VehicleType::factory()->create([ 'seat_capacity'=> 7 ]);
+        SeatingCapacity::factory()->create([ 'seating_capacity'=> 4 ]);
+        SeatingCapacity::factory()->create([ 'seating_capacity'=> 5 ]);
+        SeatingCapacity::factory()->create([ 'seating_capacity'=> 7 ]);
     }
 }
