@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Bill;
 use App\Models\Brand;
 use App\Models\Contract;
 use App\Models\Image;
@@ -91,5 +92,7 @@ class DatabaseSeeder extends Seeder
         Repair::factory(100)->create();
 
         Contract::factory(100)->create();
+
+        Bill::factory(100)->create();
     }
 }

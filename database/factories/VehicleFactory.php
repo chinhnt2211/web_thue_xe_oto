@@ -18,7 +18,7 @@ class VehicleFactory extends Factory
     {
         $this->faker->addProvider(new \Faker\Provider\Fakecar($this->faker));
         
-        $price = ($this->faker->randomNumber(2)+1)*10*1000*1000;
+        $price = ($this->faker->randomNumber(2)+1)*1000*1000;
 
         return [
             'name' => $this->faker->vehicle,
