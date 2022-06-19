@@ -18,7 +18,7 @@ class VehicleFactory extends Factory
     {
         $this->faker->addProvider(new \Faker\Provider\Fakecar($this->faker));
         
-        $price = $this->faker->randomNumber(3)*10*1000*1000;
+        $price = ($this->faker->randomNumber(2)+1)*10*1000*1000;
 
         return [
             'name' => $this->faker->vehicle,
@@ -30,7 +30,7 @@ class VehicleFactory extends Factory
             'fine' => $price/10*1.5,
             'station_id' => $this->faker->randomElement(\App\Models\Station::get()->pluck('id')),
             'brand_id' => $this->faker->randomElement(\App\Models\Brand::get()->pluck('id')),
-            'vehicle_type_id' => $this->faker->randomElement(\App\Models\Seating_capacity::get()->pluck('id')),
+            'seating_capacities_id' => $this->faker->randomElement(\App\Models\SeatingCapacity::get()->pluck('id')),
         ];
     }
 }

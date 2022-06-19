@@ -4,11 +4,14 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Brand;
+use App\Models\Contract;
 use App\Models\Image;
 use App\Models\Location;
+use App\Models\Repair;
 use App\Models\Station;
 use App\Models\User;
 use App\Models\SeatingCapacity;
+use App\Models\Vehicle;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -82,5 +85,11 @@ class DatabaseSeeder extends Seeder
         SeatingCapacity::factory()->create([ 'seating_capacity'=> 4 ]);
         SeatingCapacity::factory()->create([ 'seating_capacity'=> 5 ]);
         SeatingCapacity::factory()->create([ 'seating_capacity'=> 7 ]);
+
+        Vehicle::factory(100)->create();
+        
+        Repair::factory(100)->create();
+
+        Contract::factory(100)->create();
     }
 }

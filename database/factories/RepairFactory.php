@@ -16,14 +16,16 @@ class RepairFactory extends Factory
      */
     public function definition()
     {
+        $start_date = $this->faker->date($format = 'Y-m-d', $max = 'now');
+
         return [
-            'admin_id' => $this->faker->randomElement(\App\Models\Station::where('role', '<>', '0')->get()->pluck('id')),
+            'admin_id' => $this->faker->randomElement(\App\Models\Admin::where('role', '<>', '0')->pluck('id')),
             'vehicle_id' => $this->faker->randomElement(\App\Models\Vehicle::get()->pluck('id')),
-            'fee' => $this->faker->,
-            'start_date' => $this->faker->,
-            'end_date' => $this->faker->,
-            'description' => $this->faker->,
-            'status' => $this->faker->,
+            'fee' => $this->faker->randomDigit(2)*1000*1000,
+            'start_date' => $start_date,
+            'end_date' => date('y-m-d', strtotime($start_date . ' +1 day')),
+            'description' => $this->faker->sentence(),
+            'status' => $this->faker->randomElement([0, 1, 2, 3]),
         ];
     }
 }
