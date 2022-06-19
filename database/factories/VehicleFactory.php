@@ -16,7 +16,21 @@ class VehicleFactory extends Factory
      */
     public function definition()
     {
+        $this->faker->addProvider(new \Faker\Provider\Fakecar($this->faker));
+        
+        $price = $this->faker->randomNumber(3)*10*1000*1000;
+
         return [
+            'name' => $this->faker->vehicle,
+            'status' => $this->faker->randomElement([0, 1, 2, 3]),
+            'description' => $this->faker->sentence(),
+            'license_number' => $this->faker->vehicleRegistration,
+            'price' => $price,
+            'rent_price' => $price/10,
+            'fine' => $price/10*1.5,
+            'station_id' => $this->faker->randomElement(\App\Models\Station::get()->pluck('id')),
+            'brand_id' => $this->faker->randomElement(\App\Models\Brand::get()->pluck('id')),
+            'vehicle_type_id' => $this->faker->randomElement(\App\Models\Seating_capacity::get()->pluck('id')),
         ];
     }
 }

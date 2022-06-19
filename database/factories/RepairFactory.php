@@ -17,7 +17,13 @@ class RepairFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'admin_id' => $this->faker->randomElement(\App\Models\Station::where('role', '<>', '0')->get()->pluck('id')),
+            'vehicle_id' => $this->faker->randomElement(\App\Models\Vehicle::get()->pluck('id')),
+            'fee' => $this->faker->,
+            'start_date' => $this->faker->,
+            'end_date' => $this->faker->,
+            'description' => $this->faker->,
+            'status' => $this->faker->,
         ];
     }
 }
