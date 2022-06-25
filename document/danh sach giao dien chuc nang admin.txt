@@ -1,0 +1,1 @@
+menu admin-ban đầu	tạo nhân viên	tạo trạm	tạo xe	xác minh tài khoản khách hàng-hoạt động	sửa nhân viên	sửa trạm	sửa xe	duyệt hợp đồng thuê xe	gửi yêu cầu sửa xe	duyệt sửa xe	-tổng kết	tổng kết ngày	tổng kết tháng				
