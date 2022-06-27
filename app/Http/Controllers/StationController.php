@@ -15,7 +15,9 @@ class StationController extends Controller
      */
     public function index()
     {
-        //
+        $stations = Station::get();
+
+        return $stations;
     }
 
     /**
