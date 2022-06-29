@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div id="admin">
+        <page-title/>
         <nav>
             <router-link to="/admin/stations">Stations</router-link>
             <router-link to="/admin/admins">Admins</router-link>
@@ -9,3 +10,16 @@
         <router-view></router-view>
     </div>
 </template>
+
+<script>
+
+import HeaderCompt from '@/admin/Layout/Components/Header.vue';
+
+export default {
+    components: {
+        PageTitle
+    },
+    methods: {},
+};
+
+</script>

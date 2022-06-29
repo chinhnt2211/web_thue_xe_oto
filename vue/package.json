@@ -10,7 +10,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/vue-fontawesome": "^2.0.8",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
     "autoprefixer": "^10.4.7",
     "chart.js": "^3.8.0",
     "postcss": "^8.4.14",

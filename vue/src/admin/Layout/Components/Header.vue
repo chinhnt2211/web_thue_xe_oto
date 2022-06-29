@@ -32,8 +32,8 @@
 
 <script>
 
-    import SearchBox from './Header/SearchBox';
-    import UserArea from './Header/HeaderUserArea';
+    import SearchBox from './Header/SearchBox.vue';
+    import UserArea from './Header/HeaderUserArea.vue';
 
     import {library} from '@fortawesome/fontawesome-svg-core'
     import {

@@ -35,7 +35,7 @@
                                 class="widget-description opacity-8 text-focus"
                             >
                                 <div class="d-inline text-danger pr-1">
-                                    <font-awesome-icon icon="angle-down" />
+                                    <!-- <font-awesome-icon icon="angle-down" /> -->
                                     <span class="pl-1">54.1%</span>
                                 </div>
                                 less earnings
@@ -64,7 +64,7 @@
                             >
                                 Grow Rate:
                                 <span class="text-info pl-1">
-                                    <font-awesome-icon icon="angle-down" />
+                                    <!-- <font-awesome-icon icon="angle-down" /> -->
                                     <span class="pl-1">14.1%</span>
                                 </span>
                             </div>
@@ -90,7 +90,7 @@
                             <div class="widget-description text-focus">
                                 Increased by
                                 <span class="text-warning pl-1">
-                                    <font-awesome-icon icon="angle-up" />
+                                    <!-- <font-awesome-icon icon="angle-up" /> -->
                                     <span class="pl-1">7.35%</span>
                                 </span>
                             </div>
@@ -163,7 +163,7 @@
                                     <div
                                         class="widget-chart-wrapper he-auto opacity-10 m-0"
                                     >
-                                        <chart1 :height="145" />
+                                        <!-- <chart1 :height="145" /> -->
                                     </div>
                                 </div>
                             </div>
@@ -629,16 +629,16 @@
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-success"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="check"
-                                                    />
+                                                    /> -->
                                                 </button>
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-danger"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="trash-alt"
-                                                    />
+                                                    /> -->
                                                 </button>
                                             </div>
                                         </div>
@@ -724,9 +724,9 @@
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-success"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="check"
-                                                    />
+                                                    /> -->
                                                 </button>
                                             </div>
                                             <div
@@ -791,16 +791,16 @@
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-success"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="check"
-                                                    />
+                                                    /> -->
                                                 </button>
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-danger"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="trash-alt"
-                                                    />
+                                                    /> -->
                                                 </button>
                                             </div>
                                         </div>
@@ -848,16 +848,16 @@
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-success"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="check"
-                                                    />
+                                                    /> -->
                                                 </button>
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-danger"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="trash-alt"
-                                                    />
+                                                    /> -->
                                                 </button>
                                             </div>
                                         </div>
@@ -906,16 +906,16 @@
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-success"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="check"
-                                                    />
+                                                    /> -->
                                                 </button>
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-danger"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="trash-alt"
-                                                    />
+                                                    /> -->
                                                 </button>
                                             </div>
                                         </div>
@@ -961,9 +961,9 @@
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-success"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="check"
-                                                    />
+                                                    /> -->
                                                 </button>
                                             </div>
                                             <div
@@ -1022,16 +1022,16 @@
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-success"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="check"
-                                                    />
+                                                    /> -->
                                                 </button>
                                                 <button
                                                     class="border-0 btn-transition btn btn-outline-danger"
                                                 >
-                                                    <font-awesome-icon
+                                                    <!-- <font-awesome-icon
                                                         icon="trash-alt"
-                                                    />
+                                                    /> -->
                                                 </button>
                                             </div>
                                         </div>

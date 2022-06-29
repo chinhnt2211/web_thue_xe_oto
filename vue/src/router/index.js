@@ -9,22 +9,22 @@ const routes = [
     {
         path: '/Admin',
         name: 'Admin',
-        component: () => import('../view/Admin.vue'),
+        component: () => import('../admin/Admin.vue'),
         children: [
-            {
-                path: '',
-                name: 'analytics',
-                component: () => import('../admin/DemoPages/Dashboards/Analytics.vue'),
-            },
+            // {
+            //     path: '',
+            //     name: 'analytics',
+            //     component: () => import('../admin/DemoPages/Dashboards/Analytics.vue'),
+            // },
             {
                 path: 'Stations',
                 name: 'Stations',
-                component: () => import('../components/admin/Stations.vue'),
+                component: () => import('../admin/components/Stations.vue'),
             },
             {
                 path: 'Station/:id',
                 name: 'Station',
-                component: () => import('../components/admin/Station.vue'),
+                component: () => import('../admin/components/Station.vue'),
                 children: [
                     // {
                     //     path: '',
@@ -36,12 +36,12 @@ const routes = [
             {
                 path: 'Admins',
                 name: 'Admins',
-                component: () => import('../components/admin/Admins.vue'),
+                component: () => import('../admin/components/Admins.vue'),
             },
             {
                 path: 'Vehicles',
                 name: 'Vehicles',
-                component: () => import('../components/admin/Vehicles.vue'),
+                component: () => import('../admin/components/Vehicles.vue'),
             },
         ]
     },

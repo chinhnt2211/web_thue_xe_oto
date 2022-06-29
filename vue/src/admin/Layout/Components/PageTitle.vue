@@ -15,10 +15,10 @@
             </div>
             <div class="page-title-actions">
                 <button type="button" class="btn-shadow mr-3 btn btn-dark">
-                    <font-awesome-icon icon="star"/>
+                    <!-- <font-awesome-icon icon="star"/> -->
                 </button>
                 <button type="button" class="btn-shadow d-inline-flex align-items-center btn btn-success">
-                    <font-awesome-icon class="mr-2" icon="plus"/>
+                    <!-- <font-awesome-icon class="mr-2" icon="plus"/> -->
                     Create New
                 </button>
             </div>
