@@ -8,6 +8,11 @@ use App\Models\Station;
 
 class StationController extends Controller
 {
+    private $object;
+
+    function __construct() {
+        $this->object = Station::class;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,9 @@ class StationController extends Controller
      */
     public function index()
     {
-        //
+        $data = $this->object::get();
+
+        return $data;
     }
 
     /**

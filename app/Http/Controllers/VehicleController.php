@@ -8,6 +8,11 @@ use App\Models\Vehicle;
 
 class VehicleController extends Controller
 {
+    private $object;
+
+    function __construct() {
+        $this->object = Station::class;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        $data = $this->object::get();
+
+        return $data;
     }
 
     /**

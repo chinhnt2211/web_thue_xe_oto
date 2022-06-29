@@ -1,12 +1,51 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Dashboard from "../view/Dashboard.vue";
 
 const routes = [
     {
         path: '/',
         name: 'Dashboard',
-        component: Dashboard
-    }
+        component: () => import('../view/Dashboard.vue')
+    },
+    {
+        path: '/Admin',
+        name: 'Admin',
+        component: () => import('../view/Admin.vue'),
+        children: [
+            {
+                path: '',
+                name: 'analytics',
+                component: () => import('../admin/DemoPages/Dashboards/Analytics.vue'),
+            },
+            {
+                path: 'Stations',
+                name: 'Stations',
+                component: () => import('../components/admin/Stations.vue'),
+            },
+            {
+                path: 'Station/:id',
+                name: 'Station',
+                component: () => import('../components/admin/Station.vue'),
+                children: [
+                    // {
+                    //     path: '',
+                    //     name: 'info',
+                    //     component: StationInfo
+                    // },
+                ]
+            },
+            {
+                path: 'Admins',
+                name: 'Admins',
+                component: () => import('../components/admin/Admins.vue'),
+            },
+            {
+                path: 'Vehicles',
+                name: 'Vehicles',
+                component: () => import('../components/admin/Vehicles.vue'),
+            },
+        ]
+    },
+    
 ]
 
 const router  = createRouter({
