@@ -16,23 +16,22 @@ $app-header-logo-bg: rgba(255, 255, 255, .9);
   }
 
   .app-sidebar {
-    .app-sidebar-content {
-      background: $app-sidebar-bg;
-    }
-  }
-
-  .app-inner-layout__wrapper {
-    border-bottom: $gray-200 solid 1px;
+    background: $app-sidebar-bg;
   }
 
   .app-page-title {
     background: rgba(255, 255, 255, .45);
   }
 
-  .app-sidebar .app-header__logo,
   .app-footer .app-footer__inner,
   .app-header {
     background: $app-header-bg;
+  }
+
+  &.fixed-header {
+    .app-header__logo {
+      background: rgba($app-header-bg, .1);
+    }
   }
 
 }

@@ -12,3 +12,8 @@ button,
   flex-direction: column;
   margin: 0;
 }
+
+.table th,
+.table td {
+  vertical-align: middle;
+}

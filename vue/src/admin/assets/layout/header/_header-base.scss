@@ -5,14 +5,9 @@
   display: flex;
   align-items: center;
   align-content: center;
+  position: relative;
   z-index: 10;
   transition: all .2s;
-  position: fixed;
-  width: 100%;
-
-  .logo-src {
-    display: none;
-  }
 
   &.header-shadow {
     box-shadow: $box-shadow-default;
@@ -23,21 +18,32 @@
     align-items: center;
     align-content: center;
     flex: 1;
-    padding-left: $app-sidebar-width;
+    padding: 0 $layout-spacer-x;
     height: $app-header-height;
-    transition: all .2s;
 
     .app-header-left {
       display: flex;
       align-items: center;
-      padding: 0 0 0 $layout-spacer-x;
+    }
+
+    .header-menu {
+      .nav-link {
+        color: $gray-600;
+
+        i {
+          color: $gray-500;
+        }
+
+        &:hover {
+          color: $gray-900;
+        }
+      }
     }
 
     .app-header-right {
       align-items: center;
       display: flex;
       margin-left: auto;
-      padding: 0 $layout-spacer-x 0 0;
     }
   }
 
@@ -53,6 +59,21 @@
   }
 }
 
+.app-header__logo {
+  padding: 0 $layout-spacer-x;
+  height: $app-header-height;
+  width: $app-sidebar-width;
+  display: flex;
+  align-items: center;
+  transition: width .2s;
+
+  .logo-src {
+    height: $logo-height;
+    width: $logo-width;
+    background: url('utils/images/logo-inverse.png');
+  }
+}
+
 .app-header__menu,
 .app-header__mobile-menu {
   display: none;
@@ -61,9 +82,9 @@
   align-items: center;
 }
 
-// Modifiers
+// Header Modifiers
 
-@import "modifiers/header-userarea";
+@import "modifiers/fixed-header";
 
 // Header Themes
 

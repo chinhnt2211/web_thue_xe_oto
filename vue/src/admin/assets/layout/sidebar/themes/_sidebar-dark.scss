@@ -1,88 +1,86 @@
-// Sidebar Dark
+// Sidebar Light
 
 .app-sidebar {
-  &.text-darker {
-    .app-sidebar-content {
-      background: none !important;
-    }
+  &.sidebar-text-dark {
+    border-right: 0 !important;
 
-    .app-header__logo {
-      background: rgba(0, 0, 0, .1) !important;
-    }
+    .app-sidebar__heading {
+      color: rgba(0, 0, 0, .6);
 
-    .logo-src {
-      background: url('./assets/images/logo-inverse.png');
-    }
-
-    .hamburger-inner,
-    .hamburger-inner::before,
-    .hamburger-inner::after {
-      background: rgba(0, 0, 0, .8) !important;
-    }
-
-    .hamburger-box:hover {
-      .hamburger-inner,
-      .hamburger-inner::before,
-      .hamburger-inner::after {
-        background: rgba(0, 0, 0, 1) !important;
+      &::before {
+        background: rgba(0, 0, 0, 0.5) !important;
       }
     }
 
-    .v-sidebar-menu {
-      .vsm-header {
-        color: rgba(0, 0, 0, 0.6);
+    .vertical-nav-menu {
+      li {
+        a {
+          color: rgba(0, 0, 0, 0.6);
+          i.metismenu-icon {
+            opacity: .5;
+          }
 
-        &::before {
-          background: rgba(0, 0, 0, 0.4);
+          i.metismenu-state-icon {
+            opacity: .5;
+          }
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.15);
+            color: rgba(0, 0, 0, 0.7);
+
+            i.metismenu-icon {
+              opacity: .7;
+            }
+
+            i.metismenu-state-icon {
+              opacity: 1;
+            }
+          }
+        }
+
+        a.mm-active {
+          color: rgba(0, 0, 0, 0.7);
+          background: rgba(0, 0, 0, 0.15);
         }
       }
 
-      %side-link-hover {
-        background: rgba(0, 0, 0, 0.1);
-        color: rgba(0, 0, 0, 1);
-      }
-
-      & .vsm-item.active-item {
-        & > .vsm-link {
-          @extend %side-link-hover;
+      ul {
+        &:before {
+          background: rgba(0, 0, 0, 0.1);
         }
-      }
 
-      .vsm-arrow,
-      .vsm-icon {
-        opacity: .5;
-      }
+        & > li > a {
+          color: rgba(0, 0, 0, 0.4);
 
-      & .vsm-link {
-        color: rgba(0, 0, 0, .7);
+          &:hover {
+            color: rgba(0, 0, 0, 0.7);
+          }
 
-        &:hover {
-          .vsm-icon {
-            opacity: .65;
+          &.mm-active {
+            color: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.15);
           }
         }
       }
+    }
 
-      & .vsm-dropdown {
-        &::before {
-          background: rgba(0, 0, 0, 0.1);
-        }
+    .ps__thumb-y {
+      background: rgba(0, 0, 0, .3);
+    }
+
+    .ps__rail-y:hover {
+      .ps__thumb-y {
+        background: rgba(0, 0, 0, .2);
       }
     }
 
-    .ps > .ps__scrollbar-y-rail > .ps__scrollbar-y {
-      background: rgba(0, 0, 0, 0.35);
-    }
+    .app-header__logo {
 
-    .ps.ps--in-scrolling.ps--y:hover > .ps__scrollbar-y-rail,
-    .ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail,
-    .ps:hover > .ps__scrollbar-y-rail:hover {
-      background-color: rgba(0, 0, 0, .1) !important;
-
-      & > .ps__scrollbar-y {
-        background-color: rgba(0, 0, 0, .25) !important;
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        background-color: rgba(0, 0, 0, .8);
       }
     }
-
   }
 }

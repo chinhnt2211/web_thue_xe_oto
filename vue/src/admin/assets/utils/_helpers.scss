@@ -32,16 +32,6 @@
   @include border-radius($border-radius);
 }
 
-.text-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.flex-truncate {
-  min-width: 0 !important;
-}
-
 // Center Elements
 
 .margin-h-center {
@@ -67,13 +57,13 @@
   align-content: center;
 }
 
-.alert-dismissible {
-  .close {
-    top: 0;
-    right: 5px;
-    padding: 5px;
-  }
-}
+// .alert-dismissible {
+//   .btn-close {
+//     top: 0;
+//     right: 5px;
+//     padding: 5px;
+//   }
+// }
 
 // Gradient Icons
 
@@ -261,11 +251,27 @@
   }
 }
 
-.dropzone {
-  min-height: 50px;
+.btn-info, .btn-success {
+  color:#fff !important;
 }
 
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.bg-warning {
+  color: #212529;
+}
+
+.list-group-item {
+  border: 1px solid rgba(0,0,0,0.125);
+}
+
+.btn-link, a {
+  text-decoration: none !important;
+}
+
+.bg-light {
+  color: #212529;
+  // background: #fff;
+}
+
+.table {
+  --bs-table-accent-bg: none;
 }
