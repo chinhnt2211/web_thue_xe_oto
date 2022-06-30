@@ -4,12 +4,12 @@ const routes = [
     {
         path: '/',
         name: 'dashboard',
-        component: () => import('../view/Dashboard.vue')
+        component: () => import('../views/Dashboard.vue')
     },
     {
         path: '/admin',
         name: 'admin',
-        component: () => import('../admin/admin.vue'),
+        component: () => import('../admin/Admin.vue'),
         children: [
             {
                 path: '',
@@ -45,6 +45,38 @@ const routes = [
             // },
         ]
     },
+
+
+    {
+        path : "/" ,
+        name : "Home", 
+        component : () => import('@/layouts/user/Home.vue'),
+        children : [
+            {
+                path: "",
+
+            }
+        ]
+    },
+    ,
+    {
+        path : "/auth",
+        name: "Auth",
+        redirect: "/auth/login",
+        component: ()=>import('@/layouts/user/Auth.vue'),
+        children: [
+            {
+                path : "/auth/login",
+                name: "SignIn",
+                component: ()=>import('@/views/user/SignIn.vue')
+            },
+            {
+                path : "/auth/register",
+                name: "SignUp",
+                component: ()=>import('@/views/user/SignUp.vue')
+            }
+        ]
+    }
     
 ]
 
