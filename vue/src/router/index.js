@@ -3,18 +3,18 @@ import {createRouter, createWebHistory} from "vue-router";
 const routes = [
     {
         path: '/',
-        name: 'Dashboard',
+        name: 'dashboard',
         component: () => import('../view/Dashboard.vue')
     },
     {
-        path: '/Admin',
-        name: 'Admin',
-        component: () => import('../admin/Admin.vue'),
+        path: '/admin',
+        name: 'admin',
+        component: () => import('../admin/admin.vue'),
         children: [
             {
                 path: '',
-                name: 'analytics',
-                component: () => import('../admin/DemoPages/Dashboards/Analytics.vue'),
+                name: 'dashboard',
+                component: () => import('../admin/components/dashboard.vue'),
             },
             // {
             //     path: 'Stations',

@@ -1,11 +1,23 @@
 <template>
-    <div>
-        <nav>
-            <router-link to="/admin/stations">Stations</router-link>
-            <router-link to="/admin/admins">Admins</router-link>
-            <router-link to="/admin/vehicles">Vehicles</router-link>
-        </nav>
+    <div id="admin">
         <h1>Admin</h1>
+        
+        <AppHeader/>
+        <!-- {{> ThemeOptions/theme-options }} -->
         <router-view></router-view>
     </div>
 </template>
+
+<script>
+import AppHeader from './layout/AppHeader/header.vue';
+
+export default {    
+    components: {
+        AppHeader
+    } 
+}
+</script>
+
+<style lang="scss">
+@import './assets/base.scss';
+</style>
