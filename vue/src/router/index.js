@@ -49,8 +49,8 @@ const routes = [
 
     {
         path : "/" ,
-        name : "Home", 
-        component : () => import('@/layouts/user/Home.vue'),
+        name : "Home",
+        component : () => import('@/layouts/User/Home.vue'),
         children : [
             {
                 path: "",
@@ -63,21 +63,21 @@ const routes = [
         path : "/auth",
         name: "Auth",
         redirect: "/auth/login",
-        component: ()=>import('@/layouts/user/Auth.vue'),
+        component: ()=>import('@/layouts/User/Auth.vue'),
         children: [
             {
                 path : "/auth/login",
                 name: "SignIn",
-                component: ()=>import('@/views/user/SignIn.vue')
+                component: ()=>import('@/views/User/SignIn.vue')
             },
             {
                 path : "/auth/register",
                 name: "SignUp",
-                component: ()=>import('@/views/user/SignUp.vue')
+                component: ()=>import('@/views/User/SignUp.vue')
             }
         ]
     }
-    
+
 ]
 
 const router  = createRouter({

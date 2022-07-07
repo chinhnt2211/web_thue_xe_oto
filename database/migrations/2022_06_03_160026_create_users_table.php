@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('address')->nullable();
             $table->foreign('address')->references('id')->on('locations');
             $table->string('phone_number',15);
-            $table->string('hashed_password');
+            $table->string('password');
             $table->string('cic_number',12)->nullable();
             $table->unsignedBigInteger('cic_front')->nullable();
             $table->unsignedBigInteger('cic_back')->nullable();
