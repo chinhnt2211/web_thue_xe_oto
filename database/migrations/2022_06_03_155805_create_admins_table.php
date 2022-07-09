@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('email');
             $table->unsignedBigInteger('address');
             $table->foreign('address')->references('id')->on('locations');
-            $table->string('phone_number',15);
-            $table->string('hashed_password');
+            $table->string('phone',15);
+            $table->string('password');
             $table->string('cic_number',12);
             $table->unsignedBigInteger('cic_front');
             $table->unsignedBigInteger('cic_back');

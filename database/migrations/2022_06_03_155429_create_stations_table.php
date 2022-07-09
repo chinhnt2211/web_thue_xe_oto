@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('address');
             $table->foreign('address')->references('id')->on('locations');
-            $table->string('phone_number',15);
+            $table->string('phone',15);
             $table->Integer('capacity');
         });
     }
