@@ -20,7 +20,7 @@ class StationFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'address' => $this->faker->unique()->randomElement(Location::query()->where('type', '=',0)->get('id')),
-            'phone_number' => $this->faker->regexify('0[0-9]{9}'),
+            'phone' => $this->faker->regexify('0[0-9]{9}'),
             'capacity' => $this->faker->numberBetween(1000,1500)
         ];
     }
