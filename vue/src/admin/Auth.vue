@@ -152,7 +152,6 @@
     </div>
 </template>
 <script>
-
 // UI/UX
 import Navbar from "@/admin/components/Navbars/AuthNavbar.vue";
 import FooterSmall from "@/admin/components/Footers/FooterSmall.vue";
@@ -162,15 +161,23 @@ import registerBg2 from "@/admin/assets/img/register_bg_2.png";
 import github from "@/assets/img/github.svg";
 import google from "@/assets/img/google.svg";
 
-// services
-import login from '@/admin/services/auth.js'
+// router
+import { useRouter, useRoute } from "vue-router";
 
 // utils
-import { userAuthStore } from '@/admin/utils/store/auth.js'
+import { adminAxios } from "@/admin/utils/adminAxios.js";
+import { useAuthStore } from "@/admin/utils/stores/authStore.js";
 
 export default {
     setup() {
-
+        const router = useRouter();
+        const route = useRoute();
+        const authStore = useAuthStore();
+        return {
+            router,
+            route,
+            authStore,
+        };
     },
     data() {
         return {
@@ -189,9 +196,16 @@ export default {
         FooterSmall,
     },
     methods: {
-        login() {
-            login(this.admin);
-        }
+        async login() {
+            await this.authStore.login(this.admin);
+            // console.log(this.authStore.api_access_token)
+            if (this.authStore.api_access_token) {
+                this.router.push({ name: "Admin" });
+            }
+        },
+    },
+    errorHandler(error) {
+        console.log(error);
     },
 };
 </script>

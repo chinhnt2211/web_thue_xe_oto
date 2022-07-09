@@ -2,10 +2,10 @@
   <div>
     <div class="flex flex-wrap">
       <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-        <card-line-chart />
+        <!-- <card-line-chart /> -->
       </div>
       <div class="w-full xl:w-4/12 px-4">
-        <card-bar-chart />
+        <!-- <card-bar-chart /> -->
       </div>
     </div>
     <div class="flex flex-wrap mt-4">
