@@ -23,8 +23,69 @@ class UpdateAdminRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        return [     
+            'first_name' => [
+                'required',
+                'string',
+            ],
+            'last_name' => [
+                'required',
+                'string',
+            ],
+            'email' => [
+                'required',
+                'email',
+            ],
+            'address' => [
+                'required',
+                'numeric',
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'min:9',
+                'max:15',
+            ],
+            'password' => [
+                'required',
+                'password',
+            ],
+            'cic_number' => [
+                'required',
+                'numeric',
+            ],
+            'cic_front' => [
+                'required',
+                'numeric',
+            ],
+            'cic_back' => [
+                'required',
+                'numeric',
+            ],
+            'dob' => [
+                'required',
+                'date',
+            ],
+            'gender' => [
+                'required',
+                'numeric',
+            ],
+            'avatar' => [
+                'required',
+                'numeric',
+            ],
+            'role' => [
+                'required',
+                'numeric',
+            ],
+            'status' => [
+                'required',
+                'numeric',
+            ],
+            'station_id' => [
+                'required',
+                'numeric',
+            ],
         ];
     }
 }

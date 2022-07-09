@@ -1,27 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StoreVehicleRequest;
-use App\Http\Requests\UpdateVehicleRequest;
-use App\Models\Vehicle;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\UpdateAdminRequest;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\Sanctum;
 
-class VehicleController extends Controller
+class AdminController extends Controller
 {
-    private $object;
+    private $model;
 
-    function __construct() {
-        $this->model = Vehicle::class;
+    function __construct()
+    {
+        $this->model = Admin::class;
     }
-    /**
-     * Display a listing of the resource.
+
+    /* Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function get(Request $request)
     {
-        if($request->get('id')) {
+        if ($request->get('id')) {
             return $this->model::where('id', $request->get('id'))->first();
         }
 
@@ -34,9 +37,8 @@ class VehicleController extends Controller
      * @param  \App\Http\Requests\StoreStationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVehicleRequest $request)
+    public function store(StoreAdminRequest $request)
     {
-
         (new $this->model)->fill($request->validate())->save();
 
         return response("success", 200);
@@ -49,9 +51,9 @@ class VehicleController extends Controller
      * @param  \App\Models\Station  $station
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
+    public function update(UpdateAdminRequest $request, Admin $admin)
     {
-        $vehicle->fill($request->validate())->save();
+        $admin->fill($request->validate())->save();
 
         return response("success", 200);
     }
@@ -62,10 +64,10 @@ class VehicleController extends Controller
      * @param  \App\Models\Station  $station
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicle $vehicle)
+    public function destroy(Admin $admin)
     {
-        $vehicle->delete();
-
+        $admin->delete();
+        
         return response("success", 200);
     }
 }

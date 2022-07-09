@@ -4,35 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStationRequest;
 use App\Http\Requests\UpdateStationRequest;
+use App\Models\Location;
 use App\Models\Station;
+use Illuminate\Http\Request;
 
 class StationController extends Controller
 {
     private $object;
 
     function __construct() {
-        $this->object = Station::class;
+        $this->model = Station::class;
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function get(Request $request)
     {
-        $data = $this->object::get();
+        if($request->get('id')) {
+            return $this->model::where('id', $request->get('id'))->first();
+        }
 
-        return $data;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->model::paginate();
     }
 
     /**
@@ -43,29 +37,17 @@ class StationController extends Controller
      */
     public function store(StoreStationRequest $request)
     {
-        //
-    }
+        $location = new Location();
+        $location->type = 1;
+        $location->fill($request->only(['city', 'district', 'subdistrict', 'address']))->save();
+        // return $location;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Station  $station
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Station $station)
-    {
-        //
-    }
+        $station = new Station();
+        $station->fill($request->except(['city', 'district', 'subdistrict', 'address']));
+        $station->address = $location->id;
+        $station->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Station  $station
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Station $station)
-    {
-        //
+        return response("success", 200);
     }
 
     /**
@@ -77,7 +59,9 @@ class StationController extends Controller
      */
     public function update(UpdateStationRequest $request, Station $station)
     {
-        //
+        $station->fill($request->validate())->save();
+
+        return response("success", 200);
     }
 
     /**
@@ -88,6 +72,10 @@ class StationController extends Controller
      */
     public function destroy(Station $station)
     {
-        //
+        $location_id = $station->address;
+        $station->delete();
+        Location::find($location_id)->delete();
+
+        return response("success", 200);
     }
 }
