@@ -166,7 +166,7 @@ import google from "@/assets/img/google.svg";
 import login from '@/admin/services/auth.js'
 
 // utils
-import { userAuthStore } from '@/admin/utils/store/auth.js'
+import { userAuthStore } from '@/admin/utils/store/auth'
 
 export default {
     setup() {
