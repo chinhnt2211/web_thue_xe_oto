@@ -9,4 +9,11 @@ class Location extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public $fillable = [
+        'city',
+        'district',
+        'subdistrict',
+        'address',
+    ];
 }
