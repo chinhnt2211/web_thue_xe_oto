@@ -16,6 +16,11 @@ class CreateDistrictsTable extends Migration
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type');
+            $table->string('slug');
+            $table->string('name_with_type');
+            $table->string('path');
+            $table->string('path_with_type');
             $table->foreignId('city_id');
         });
     }

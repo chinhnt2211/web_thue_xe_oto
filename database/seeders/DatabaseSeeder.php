@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
 use App\Models\Bill;
+use App\Models\User;
+use App\Models\Admin;
 use App\Models\Brand;
-use App\Models\Contract;
 use App\Models\Image;
-use App\Models\Location;
 use App\Models\Repair;
 use App\Models\Station;
-use App\Models\User;
-use App\Models\SeatingCapacity;
 use App\Models\Vehicle;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Contract;
+use App\Models\Location;
+use App\Models\SeatingCapacity;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,6 +25,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            CitySeeder::class,
+            DistrictSeeder::class,
+            SubdistrictSeeder::class,
+        ]);
         Location::factory(100)->create();
         Station::factory(10)->create();
         Image::factory(200)->create();

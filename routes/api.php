@@ -82,6 +82,7 @@ Route::prefix('/vehicles')
 Route::prefix('/enum')
     ->controller(EnumController::class)
     ->group(function () {
+        Route::get('/administrative', 'administrative');
         Route::get('/city', 'city');
         Route::get('/district', 'district');
         Route::get('/subdistrict', 'subdistrict');
