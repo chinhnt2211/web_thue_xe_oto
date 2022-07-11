@@ -9,7 +9,7 @@
           <div class="flex flex-wrap justify-center -mx-3">
             <div class="w-full max-w-full px-3 mx-auto mt-0 text-center lg:flex-0 shrink-0 lg:w-5/12">
               <h1 class="mt-12 mb-2 text-white">Welcome!</h1>
-              <p class="text-white">Use these awesome forms to login or create new account in your project for free.</p>
+              <p class="text-white">Đăng ký tài khỏan chỉ vài bước cơ bản.</p>
             </div>
           </div>
         </div>
@@ -20,7 +20,7 @@
             <div
               class="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
               <div class="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
-                <h5>Register with</h5>
+                <h5>Đăng ký với</h5>
               </div>
               <div class="flex flex-wrap px-3 -mx-3 sm:px-6 xl:px-12">
                 <div class="w-3/12 max-w-full px-1 ml-auto flex-0">
@@ -64,29 +64,32 @@
                   </a>
                 </div>
                 <div class="relative w-full max-w-full px-3 mt-2 text-center shrink-0">
-                  <p class="z-20 inline px-4 mb-2 font-semibold leading-normal bg-white text-size-sm text-slate-400">or
-                  </p>
+                  <p class="z-20 inline px-4 mb-2 font-semibold leading-normal bg-white text-size-sm text-slate-400">
+                    hoặc</p>
                 </div>
               </div>
               <div class="flex-auto p-6">
                 <form role="form text-left">
                   <div class="mb-4">
+                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Họ</label>
                     <input type="text"
                       class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                      placeholder="First Name" v-model="state.name.firstName" />
+                      placeholder="Họ" v-model="state.name.firstName" />
                     <span v-if="v$.name.firstName.$error" class="text-size-sm text-[#fa4343] italic">*{{
                         v$.name.firstName.$errors[0].$message
                     }}</span>
                   </div>
                   <div class="mb-4">
+                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Tên</label>
                     <input type="text"
                       class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                      placeholder="Last Name" v-model="state.name.lastName" />
+                      placeholder="Tên" v-model="state.name.lastName" />
                     <span v-if="v$.name.lastName.$error" class="text-size-sm text-[#fa4343] italic">*{{
                         v$.name.lastName.$errors[0].$message
                     }}</span>
                   </div>
                   <div class="mb-4">
+                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Email</label>
                     <input type="email"
                       class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
                       placeholder="Email" v-model="state.email" />
@@ -95,17 +98,19 @@
                     }}</span>
                   </div>
                   <div class="mb-4">
+                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Mật khẩu</label>
                     <input type="password"
                       class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                      placeholder="Password" v-model="state.password.password" />
+                      placeholder="Mật khẩu" v-model="state.password.password" />
                     <span v-if="v$.password.password.$error" class="text-size-sm text-[#fa4343] italic">*{{
                         v$.password.password.$errors[0].$message
                     }}</span>
                   </div>
                   <div class="mb-4">
+                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Nhập lại mật khẩu</label>
                     <input type="password"
                       class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                      placeholder="Confirm Password" v-model="state.password.confirm" />
+                      placeholder="Nhập lại mật khẩu" v-model="state.password.confirm" />
                     <span v-if="v$.password.confirm.$error" class="text-size-sm text-[#fa4343] italic">*{{
                         v$.password.confirm.$errors[0].$message
                     }}</span>
@@ -131,8 +136,8 @@
                       class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-size-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-dark-gray hover:border-slate-700 hover:bg-slate-700 hover:text-white">Sign
                       up</button>
                   </div>
-                  <p id="ten" class="mt-4 mb-0 leading-normal text-size-sm">Already have an account? 
-                    <router-link :to="{ name : 'SignIn' }" class="font-bold text-slate-700">Sign in</router-link>
+                  <p id="ten" class="mt-4 mb-0 leading-normal text-size-sm">Bạn đã có tài khoản? <router-link
+                      :to="{ name: 'SignIn' }" class="font-bold text-slate-700">Đăng nhập</router-link>
                   </p>
                 </form>
               </div>
@@ -145,11 +150,18 @@
 </template>
 <script>
 import useValidate from "@vuelidate/core";
-import axios from 'axios';
 import { required, email, sameAs, helpers } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
+import { userAuthStore } from "@/stores/userAuthStore";
+import { useRouter } from "vue-router";
 export default {
   setup() {
+    const router = useRouter();
+    const userStore = userAuthStore();
+    if (userStore.isLoggedIn) {
+      router.push('/');
+    }
+
     const regexLastName = helpers.regex(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/);
     const regexFirstName = helpers.regex(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/);
     const regexPasswords = helpers.regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
@@ -199,6 +211,7 @@ export default {
     return {
       state,
       v$,
+      userStore
     }
 
   },
@@ -215,18 +228,14 @@ export default {
         let params = {
           'first_name': this.state.name.firstName,
           'last_name': this.state.name.lastName,
-          'email' : this.state.email,
-          'password' : this.state.password.password,
+          'email': this.state.email,
+          'password': this.state.password.password,
         };
-        // axios.post('http://127.0.0.1:8000/api/users', params)
-        //   .then(response => {
-        //     console.log(response);
-        //     this.isError = false;
-        //   })
-        //   .catch(error => {
-        //     this.errors = error.response.data.errors;
-        //     this.isError = true;
-        //   });
+        this.userStore.registerUser(params).catch(error => {
+          console.log(error);
+          this.errors = error.response.data;
+          this.isError = true;
+        });
       }
     }
   }

@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => "Tien Chinh",
             'last_name' => "Nguyen",
-            'email' => 'user@example.com',
+            'email' => 'User@example.com',
             'address' => Location::query()->where('type', '=', 0)->inRandomOrder()->value('id'),
             'phone' => '0391234567',
             'password' => Hash::make('user123'),
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
         SeatingCapacity::factory()->create([ 'seating_capacity'=> 7 ]);
 
         Vehicle::factory(100)->create();
-        
+
         Repair::factory(100)->create();
 
         Contract::factory(100)->create();

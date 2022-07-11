@@ -165,7 +165,7 @@ import google from "@/assets/img/google.svg";
 import { useRouter, useRoute } from "vue-router";
 
 // utils
-import { adminAxios } from "@/admin/utils/adminAxios.js";
+import { adminAxios } from "@/utils/axiosUtil.js";
 import { useAuthStore } from "@/admin/utils/stores/authStore.js";
 
 export default {

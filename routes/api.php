@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\EnumController;
-use App\Http\Controllers\StationController;
-use App\Http\Controllers\VehicleController;
-use App\Http\Middleware\ApiAdmin;
+use App\Http\Controllers\Api\User\AuthUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,11 +14,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::prefix('/admin')
     ->as('admin.')
     ->controller(App\Http\Controllers\Admin\AuthController::class)
@@ -87,3 +78,19 @@ Route::prefix('/enum')
         Route::get('/district', 'district');
         Route::get('/subdistrict', 'subdistrict');
     });
+
+// ---------------- Auth User ---------------------------
+Route::post('/user/login', [AuthUserController::class, 'login']);
+Route::post('/user/register', [AuthUserController::class, 'register']);
+
+Route::prefix('/user')
+    ->controller(AuthUserController::class)
+    ->middleware(['auth:sanctum'])
+    ->group(function ($router){
+        Route::post('/logout', [AuthUserController::class, 'logout']);
+        Route::post('/refresh', [AuthUserController::class, 'refresh']);
+        Route::post('/me', [AuthUserController::class, 'me']);
+        Route::post('/change-pass', [AuthUserController::class, 'changePassWord']);
+});
+
+

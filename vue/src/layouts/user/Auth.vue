@@ -46,7 +46,7 @@
 </template>
 
 <style>
-/* @import url("@/assets/user/css/nucleo-icons.css");
-@import url("@/assets/user/css/nucleo-svg.css"); */
+/* @import url("@/assets/User/css/nucleo-icons.css");
+@import url("@/assets/User/css/nucleo-svg.css"); */
 @import url("@/assets/user/css/styles.css");
 </style>
