@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->unsignedBigInteger('address')->nullable();
             $table->foreign('address')->references('id')->on('locations');
-            $table->string('phone_number',15);
+            $table->string('phone',15);
             $table->string('password');
             $table->string('cic_number',12)->nullable();
             $table->unsignedBigInteger('cic_front')->nullable();
