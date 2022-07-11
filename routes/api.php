@@ -80,17 +80,20 @@ Route::prefix('/enum')
     });
 
 // ---------------- Auth User ---------------------------
-Route::post('/user/login', [AuthUserController::class, 'login']);
-Route::post('/user/register', [AuthUserController::class, 'register']);
-
+Route::prefix('/user')
+    ->controller(AuthUserController::class)
+    ->group(function ($router){
+        Route::post('/login',  'login');
+        Route::post('/register', 'register');
+    });
 Route::prefix('/user')
     ->controller(AuthUserController::class)
     ->middleware(['auth:sanctum'])
     ->group(function ($router){
-        Route::post('/logout', [AuthUserController::class, 'logout']);
-        Route::post('/refresh', [AuthUserController::class, 'refresh']);
-        Route::post('/me', [AuthUserController::class, 'me']);
-        Route::post('/change-pass', [AuthUserController::class, 'changePassWord']);
+        Route::post('/logout', 'logout');
+        Route::post('/refresh', 'refresh');
+        Route::post('/me', 'me');
+        Route::post('/change-pass', 'changePassWord');
 });
 
 
