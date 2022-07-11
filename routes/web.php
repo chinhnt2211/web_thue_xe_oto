@@ -3,7 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\VehicleController;
+use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::prefix('/api')->group(function() {
-    Route::resource('/stations', StationController::class);
-    Route::resource('/admins', AdminController::class);
-    Route::resource('/vehicles', VehicleController::class);
-});
-
-
-
-
-
+// Route::get('/', function () {
+//     return view('vue.index');
+// });
 
 
 

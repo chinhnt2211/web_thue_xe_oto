@@ -24,7 +24,46 @@ class UpdateVehicleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required',
+                'string',
+            ],
+            'status' => [
+                'required',
+                'numeric',
+            ],
+            'description' => [
+                'required',
+                'string',
+            ],
+            'license_number' => [
+                'required',
+                'string',
+            ],
+            'price' => [
+                'required',
+                'numeric',
+            ],
+            'rent_price' => [
+                'required',
+                'numeric',
+            ],
+            'fine' => [
+                'required',
+                'numeric',
+            ],
+            'station_id' => [
+                'required',
+                'numeric',
+            ],
+            'brand_id' => [
+                'required',
+                'numeric',
+            ],
+            'seating_capacities_id' => [
+                'required',
+                'numeric',
+            ],
         ];
     }
 }

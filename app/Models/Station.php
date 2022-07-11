@@ -9,4 +9,11 @@ class Station extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public $fillable = [
+        'name',
+        'address',
+        'phone',
+        'capacity',
+    ];
 }
