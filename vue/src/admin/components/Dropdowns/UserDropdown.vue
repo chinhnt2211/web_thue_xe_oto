@@ -7,14 +7,14 @@
             v-on:click="toggleDropdown($event)"
         >
             <div class="items-center flex">
-                <span class="text-white m-1">{{ this.authStore.admin.first_name }}</span>
+                <span class="text-white pr-3">{{ this.auth.admin.last_name }} {{ this.auth.admin.first_name }}</span>
                 <span
-                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full overflow-hidden"
                 >
                     <img
                         alt="..."
-                        class="w-full rounded-full align-middle border-none shadow-lg"
-                        :src="image"
+                        class="w-full align-middle border-none shadow-lg"
+                        :src="auth.admin.avatarURL"
                     />
                 </span>
             </div>
@@ -31,9 +31,17 @@
                 href="javascript:void(0);"
                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             >
-                Action
+                Account
             </a>
+            <div class="h-0 my-2 border border-solid border-blueGray-100" />
             <a
+                href="javascript:void(0);"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                @click="logoutHandler"
+            >
+                Logout
+            </a>
+            <!-- <a
                 href="javascript:void(0);"
                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             >
@@ -51,7 +59,7 @@
                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             >
                 Seprated link
-            </a>
+            </a> -->
         </div>
     </div>
 </template>
@@ -60,14 +68,14 @@
 import { createPopper } from "@popperjs/core";
 
 import image from "@/admin/assets/img/team-1-800x800.jpg";
-import { useAuthStore } from "@/admin/utils/stores/authStore";
+import { useAuthStore } from "@/admin/services/stores/authStore";
 
 export default {
     setup() {
-        const authStore = useAuthStore();
+        const auth = useAuthStore();
 
         return {
-            authStore
+            auth
         }
     },
     data() {
@@ -92,6 +100,10 @@ export default {
                 );
             }
         },
+        logoutHandler() {
+            this.auth.logout();
+            this.$router.push({ name: 'Admin.Login'});
+        }
     },
 };
 </script>

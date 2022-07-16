@@ -71,7 +71,7 @@
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link
-              to="/admin/dashboard"
+              :to="{ name: 'Admin.Dashboard' }"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -106,7 +106,7 @@
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link
-              to="/admin/stations"
+              :to="{ name: 'Admin.Stations' }"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -130,7 +130,7 @@
 
           <li class="items-center">
             <router-link
-              to="/admin/staffs"
+              :to="{ name: 'Admin.Staffs' }"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -154,7 +154,7 @@
 
           <li class="items-center">
             <router-link
-              to="/admin/users"
+              :to="{ name: 'Admin.Users' }"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -212,7 +212,7 @@
         <!-- <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link
-              to="/admin/dashboard"
+              :to="{ name: 'Admin.Dashboard' }"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -236,7 +236,7 @@
 
           <li class="items-center">
             <router-link
-              to="/admin/settings"
+              :to="{ name: 'Admin.Settings' }"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -260,7 +260,7 @@
 
           <li class="items-center">
             <router-link
-              to="/admin/tables"
+              :to="{ name: 'Admin.Tables' }"
               v-slot="{ href, navigate, isActive }"
             >
               <a
