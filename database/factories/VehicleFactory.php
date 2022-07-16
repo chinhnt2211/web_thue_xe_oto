@@ -30,7 +30,7 @@ class VehicleFactory extends Factory
             'fine' => $price/10*1.5,
             'station_id' => $this->faker->randomElement(\App\Models\Station::get()->pluck('id')),
             'brand_id' => $this->faker->randomElement(\App\Models\Brand::get()->pluck('id')),
-            'seating_capacities_id' => $this->faker->randomElement(\App\Models\SeatingCapacity::get()->pluck('id')),
+            'seating_capacity_id' => $this->faker->randomElement(\App\Models\SeatingCapacity::get()->pluck('id')),
         ];
     }
 }
