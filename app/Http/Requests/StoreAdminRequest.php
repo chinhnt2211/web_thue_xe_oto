@@ -38,10 +38,10 @@ class StoreAdminRequest extends FormRequest
             ],
             'address' => [
                 'required',
-                'numeric',
+                'string',
             ],
             'phone' => [
-                'required',
+                'nullable',
                 'string',
                 'min:9',
                 'max:15',
@@ -55,12 +55,14 @@ class StoreAdminRequest extends FormRequest
                 'numeric',
             ],
             'cic_front' => [
-                'required',
-                'numeric',
+                'nullable',
+                'file',
+                'image',
             ],
             'cic_back' => [
-                'required',
-                'numeric',
+                'nullable',
+                'file',
+                'image',
             ],
             'dob' => [
                 'required',
@@ -71,8 +73,9 @@ class StoreAdminRequest extends FormRequest
                 'numeric',
             ],
             'avatar' => [
-                'required',
-                'numeric',
+                'nullable',
+                'file',
+                'image',
             ],
             'role' => [
                 'required',
