@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('station_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->foreignId('seating_capacity_id')->constrained();
+            $table->timestamps();
         });
     }
 

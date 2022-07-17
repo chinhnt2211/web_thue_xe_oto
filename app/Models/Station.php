@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Station extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     public $fillable = [
         'name',
@@ -16,9 +15,24 @@ class Station extends Model
         'phone',
         'capacity',
     ];
-    
+
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public static function withAll()
+    {
+        return self::with([
+            'location',
+            'location.city',
+            'location.district',
+            'location.subdistrict'
+        ]);
+    }
+    
+    public function latest($column = 'created_at')
+    {
+        return $this->orderBy($column, 'desc');
     }
 }

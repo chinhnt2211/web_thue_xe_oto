@@ -9,5 +9,4 @@ class District extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
 }

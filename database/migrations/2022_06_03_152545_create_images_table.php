@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('type');
             $table->string('link',300);
+            $table->timestamps();
         });
     }
 

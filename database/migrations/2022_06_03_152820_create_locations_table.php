@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('district_id',6);
             $table->string('subdistrict_id',6);
             $table->string('address')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -12,8 +12,6 @@ class Admin extends Authenticatable
 {
     use HasFactory, HasApiTokens;
 
-    public $timestamps = false;
-
     public $fillable = [
         'first_name',
         'last_name',
@@ -55,5 +53,24 @@ class Admin extends Authenticatable
     public function station()
     {
         return $this->belongsTo(Station::class);
+    }
+
+    public function withAll()
+    {
+        return $this::with([
+            'avatar',
+            'cic_front',
+            'cic_back',
+            'location',
+            'location.city',
+            'location.district',
+            'location.subdistrict',
+            'station',
+        ]);
+    }
+
+    public function latest($column = 'created_at')
+    {
+        return $this->orderBy($column, 'desc');
     }
 }
