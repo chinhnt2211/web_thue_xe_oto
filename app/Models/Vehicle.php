@@ -20,6 +20,21 @@ class Vehicle extends Model
         'fine',
         'station_id',
         'brand_id',
-        'seating_capacities_id',
+        'seating_capacity_id',
     ];
+
+    public function station()
+    {
+        return $this->belongsTo(Station::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function seatingCapacity()
+    {
+        return $this->belongsTo(SeatingCapacity::class, 'seating_capacity_id');
+    }
 }

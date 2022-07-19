@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('fine');
             $table->foreignId('station_id')->constrained();
             $table->foreignId('brand_id')->constrained();
-            $table->foreignId('seating_capacities_id')->constrained();
+            $table->foreignId('seating_capacity_id')->constrained();
         });
     }
 

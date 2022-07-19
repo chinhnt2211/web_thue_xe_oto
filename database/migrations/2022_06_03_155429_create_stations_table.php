@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('stations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('address');
-            $table->foreign('address')->references('id')->on('locations');
+            $table->foreignId('location_id');
             $table->string('phone',15);
             $table->Integer('capacity');
         });

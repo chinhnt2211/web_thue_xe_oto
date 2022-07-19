@@ -1,8 +1,17 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\User\AuthUserController;
+use App\Http\Controllers\EnumController;
+use App\Http\Controllers\StationController;
+use App\Http\Controllers\VehicleController;
+use App\Models\Admin;
+use App\Models\Location;
+use App\Models\Station;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,19 +23,33 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// Enum
+
+Route::prefix('/enum')
+->controller(EnumController::class)
+->group(function () {
+    // Route::get('/administrative', 'administrative');
+    Route::get('/cities', 'cities');
+    Route::get('/districts', 'districts');
+    Route::get('/subdistricts', 'subdistricts');
+});
+
+// Admin
+
 Route::prefix('/admin')
-    ->as('admin.')
     ->controller(App\Http\Controllers\Admin\AuthController::class)
     ->group(function () {
         Route::post('/login', 'login')->name('login');
     });
 
 Route::prefix('/admin')
-    ->controller(AdminController::class)
+    ->controller(App\Http\Controllers\Admin\AuthController::class)
     ->middleware(['auth:sanctum', 'abilities:superAdmin'])
     ->group(function () {
-        Route::get('/get', 'get');
+        Route::get('/me', 'me');
     });
+
 
 Route::prefix('/admins')
     ->controller(AdminController::class)
@@ -70,30 +93,23 @@ Route::prefix('/vehicles')
             });
     });
 
-Route::prefix('/enum')
-    ->controller(EnumController::class)
-    ->group(function () {
-        Route::get('/administrative', 'administrative');
-        Route::get('/city', 'city');
-        Route::get('/district', 'district');
-        Route::get('/subdistrict', 'subdistrict');
-    });
-
 // ---------------- Auth User ---------------------------
 Route::prefix('/user')
     ->controller(AuthUserController::class)
-    ->group(function ($router){
+    ->group(function ($router) {
         Route::post('/login',  'login');
         Route::post('/register', 'register');
     });
 Route::prefix('/user')
     ->controller(AuthUserController::class)
     ->middleware(['auth:sanctum'])
-    ->group(function ($router){
+    ->group(function ($router) {
         Route::post('/logout', 'logout');
         Route::post('/refresh', 'refresh');
         Route::post('/me', 'me');
         Route::post('/change-pass', 'changePassWord');
-});
+    });
 
 
+    Route::get('/test', function () {
+    });

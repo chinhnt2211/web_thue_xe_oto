@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->safeEmail(),
-            'address' => $this->faker->unique()->randomElement(Location::query()->where('type', '=', 0)->get('id')),
+            'location_id' => $this->faker->unique()->randomElement(Location::query()->where('type', '=', 0)->get('id')),
             'phone' => $this->faker->regexify('0[0-9]{9}'),
             'password' => $this->faker->password(),
             'cic_number' => $this->faker->regexify('0[0-9]{11}'),

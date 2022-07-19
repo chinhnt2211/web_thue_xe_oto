@@ -11,9 +11,23 @@ class Location extends Model
     public $timestamps = false;
 
     public $fillable = [
-        'city',
-        'district',
-        'subdistrict',
+        'city_id',
+        'district_id',
+        'subdistrict_id',
         'address',
     ];
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function subdistrict()
+    {
+        return $this->belongsTo(Subdistrict::class);
+    }
 }

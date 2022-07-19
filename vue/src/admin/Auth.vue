@@ -15,56 +15,13 @@
                             <div
                                 class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
                             >
-                                <!-- <div class="rounded-t mb-0 px-6 py-6">
-                                    <div class="text-center mb-3">
-                                        <h6
-                                            class="text-blueGray-500 text-sm font-bold"
-                                        >
-                                            Sign in with
-                                        </h6>
-                                    </div>
-                                    <div class="btn-wrapper text-center">
-                                        <button
-                                            class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                                            type="button"
-                                        >
-                                            <img
-                                                alt="..."
-                                                class="w-5 mr-1"
-                                                :src="github"
-                                            />
-                                            Github
-                                        </button>
-                                        <button
-                                            class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                                            type="button"
-                                        >
-                                            <img
-                                                alt="..."
-                                                class="w-5 mr-1"
-                                                :src="google"
-                                            />
-                                            Google
-                                        </button>
-                                    </div>
-                                    <hr
-                                        class="mt-6 border-b-1 border-blueGray-300"
-                                    />
-                                </div> -->
                                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                                    <!-- <div
-                                        class="text-blueGray-400 text-center mb-3 font-bold"
-                                    >
-                                        <small
-                                            >Or sign in with credentials</small
-                                        >
-                                    </div> -->
                                     <div
                                         class="text-blueGray-800 text-center m-3 font-bold text-5xl"
                                     >
                                         <small>Sign in</small>
                                     </div>
-                                    <form @submit.prevent="login">
+                                    <form @submit.prevent="loginHandler">
                                         <div class="relative w-full mb-3">
                                             <label
                                                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -77,7 +34,7 @@
                                                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                                 placeholder="Email"
                                                 name="email"
-                                                v-model="admin.email"
+                                                v-model="model.email"
                                             />
                                         </div>
 
@@ -93,10 +50,10 @@
                                                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                                 placeholder="Password"
                                                 name="password"
-                                                v-model="admin.password"
+                                                v-model="model.password"
                                             />
                                         </div>
-                                        <div>
+                                        <!-- <div>
                                             <label
                                                 class="inline-flex items-center cursor-pointer"
                                             >
@@ -112,80 +69,81 @@
                                                     Remember me
                                                 </span>
                                             </label>
-                                        </div>
+                                        </div> -->
 
                                         <div class="text-center mt-6">
                                             <button
                                                 class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                                                 type="submit"
                                             >
-                                                Sign In
+                                                <svg
+                                                    v-if="loading"
+                                                    role="status"
+                                                    class="mr-2 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 inline"
+                                                    viewBox="0 0 100 101"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                                        fill="currentColor"
+                                                    />
+                                                    <path
+                                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                                        fill="currentFill"
+                                                    />
+                                                </svg>
+                                                <span>Sign In</span>
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <!-- <div class="flex flex-wrap mt-6 relative">
-                                <div class="w-1/2">
-                                    <a
-                                        href="javascript:void(0)"
-                                        class="text-blueGray-200"
-                                    >
-                                        <small>Forgot password?</small>
-                                    </a>
-                                </div>
-                                <div class="w-1/2 text-right">
-                                    <router-link
-                                        to="/auth/register"
-                                        class="text-blueGray-200"
-                                    >
-                                        <small>Create new account</small>
-                                    </router-link>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
-                <!-- <footer-small absolute /> -->
             </section>
         </main>
+        <toast />
     </div>
 </template>
 <script>
 // UI/UX
 import Navbar from "@/admin/components/Navbars/AuthNavbar.vue";
 import FooterSmall from "@/admin/components/Footers/FooterSmall.vue";
+import Toast from "@/admin/components/Toast.vue";
 
 import registerBg2 from "@/admin/assets/img/register_bg_2.png";
-
-import github from "@/assets/img/github.svg";
-import google from "@/assets/img/google.svg";
 
 // router
 import { useRouter, useRoute } from "vue-router";
 
 // utils
-import { adminAxios } from "@/utils/axiosUtil.js";
-import { useAuthStore } from "@/admin/utils/stores/authStore.js";
+// import { adminAxios } from "@/utils/axiosUtil.js";
+import { useAuthStore } from "@/admin/services/stores/authStore.js";
+import { useToastsStore } from "@/admin/services/stores/toastsStore.js";
 
 export default {
     setup() {
         const router = useRouter();
         const route = useRoute();
-        const authStore = useAuthStore();
+        const auth = useAuthStore();
+        const toasts = useToastsStore();
+
         return {
             router,
             route,
-            authStore,
+            auth,
+            toasts,
         };
     },
     data() {
         return {
             app_name: "Thue Xe - Admin",
             registerBg2,
-            github,
-            google,
-            admin: {
+            errors: [],
+            loading: false,
+            model: {
                 email: null,
                 password: null,
             },
@@ -194,22 +152,47 @@ export default {
     components: {
         Navbar,
         FooterSmall,
+        Toast,
     },
     methods: {
-        async login() {
-            await this.authStore.login(this.admin);
-            // console.log(this.authStore.api_access_token)
-            if (this.authStore.api_access_token) {
-                this.router.push({ name: "Admin" });
-            }
+        async loginHandler() {
+            this.loading = true;
+            await this.auth
+                .login(this.model)
+                .then((response) => {
+                    console.log(response);
+                    this.router.push({ name: "Admin" });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.toasts.notify(error.response?.data, 'danger');
+                });
+
+            // console.log(this.auth.token)
+            this.loading = false;
         },
-    },
-    errorHandler(error) {
-        console.log(error);
     },
 };
 </script>
 
 <style>
 @import "@/admin/assets/styles/tailwind.css";
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 </style>

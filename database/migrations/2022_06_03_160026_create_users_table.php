@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->unsignedBigInteger('address')->nullable();
-            $table->foreign('address')->references('id')->on('locations');
+            $table->foreignId('location_id');
             $table->string('phone',15);
             $table->string('password');
             $table->string('cic_number',12)->nullable();

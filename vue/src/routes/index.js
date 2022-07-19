@@ -22,7 +22,7 @@ const routes = [
                 path: "/admin/stations",
                 name: "Admin.Stations",
                 redirect: "/admin/stations/index",
-                component: () => import("@/admin/views/station/Stations.vue"),
+                component: () => import("@/admin/views/Stations.vue"),
                 children: [
                     {
                         path: "/admin/stations/index",
@@ -30,31 +30,59 @@ const routes = [
                         component: () => import("@/admin/components/Stations/Index.vue"),
                     },
                     {
-                        path: "/admin/stations/:id",
-                        name: "Admin.Stations.Update",
-                        component: () => import("@/admin/components/Stations/Update.vue"),
-                    },
-                    {
                         path: "/admin/stations/create",
                         name: "Admin.Stations.Create",
                         component: () => import("@/admin/components/Stations/Create.vue"),
+                    },
+                    {
+                        path: "/admin/stations/:id",
+                        name: "Admin.Stations.Show",
+                        component: () => import("@/admin/components/Stations/Show.vue"),
+                    },
+                    {
+                        path: "/admin/stations/:id/update",
+                        name: "Admin.Stations.Update",
+                        component: () => import("@/admin/components/Stations/Update.vue"),
                     },
                 ]
             },
             {
                 path: "/admin/staffs",
-                name: "StaffsAdmin.",
-                component: () => import("@/admin/views/staff/Staffs.vue"),
+                name: "Admin.Staffs",
+                redirect: "/admin/staffs/index",
+                component: () => import("@/admin/views/Staffs.vue"),
+                children: [
+                    {
+                        path: "/admin/staffs/index",
+                        name: "Admin.Staffs.Index",
+                        component: () => import("@/admin/components/Staffs/Index.vue"),
+                    },
+                    {
+                        path: "/admin/staffs/create",
+                        name: "Admin.Staffs.Create",
+                        component: () => import("@/admin/components/Staffs/Create.vue"),
+                    },
+                    {
+                        path: "/admin/staffs/:id",
+                        name: "Admin.Staffs.Show",
+                        component: () => import("@/admin/components/Staffs/Show.vue"),
+                    },
+                    {
+                        path: "/admin/staffs/:id/update",
+                        name: "Admin.Staffs.Update",
+                        component: () => import("@/admin/components/Staffs/Update.vue"),
+                    },
+                ]
             },
             {
                 path: "/admin/users",
-                name: "UsersAdmin.",
-                component: () => import("@/admin/views/user/Users.vue"),
+                name: "Admin.Users",
+                component: () => import("@/admin/views/Users.vue"),
             },
             {
-                path: "vehicles",
-                name: "Vehicles",
-                component: () => import("@/admin/views/vehicle/Vehicles.vue"),
+                path: "/admin/vehicles",
+                name: "Admin.Vehicles",
+                component: () => import("@/admin/views/Vehicles.vue"),
             },
         ],
     },

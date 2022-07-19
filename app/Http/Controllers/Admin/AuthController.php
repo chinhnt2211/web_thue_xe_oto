@@ -3,54 +3,57 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Image;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
 
-    public function get()
+    public function me()
     {
-        return auth()->user();
+        $admin = auth()->user();
+        $admin->avatarURL = Image::find($admin->avatar)->link;
+
+        return response($admin);
     }
-    
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => [
                 'required',
                 'email',
+                'max:255',
             ],
             'password' => [
                 'required',
                 'string',
                 'min:6',
+                'max:255',
             ]
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response('Something wrong happened', 422);
         }
 
-        if(!Auth::guard('api_admin')->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (!Auth::guard('api_admin')->attempt($validator->validated())) {
+            return response('Unauthorized', 401);
         }
-        
-        $token = Auth::guard('api_admin')->user()->createToken('api_access_token', [
+
+        $token = Auth::guard('api_admin')->user()->createToken('token', [
             'superAdmin'
         ]);
         $plainTextToken = $token->plainTextToken;
 
         return response([
-            'status_code' => 200,
-            'message' => 'success',
             'token_type' => 'Bearer',
-            'api_access_token' => $plainTextToken,
+            'token' => $plainTextToken,
             'admin' => Auth::guard('api_admin')->user(),
             'test' => $token
-        ], 200);
+        ]);
     }
 }
