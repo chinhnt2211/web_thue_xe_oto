@@ -2,7 +2,15 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\AdminRoleEnum;
+use App\Enums\AdminStatusEnum;
+use App\Enums\GenderEnum;
+use App\Models\City;
+use App\Models\District;
+use App\Models\Station;
+use App\Models\Subdistrict;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAdminRequest extends FormRequest
 {
@@ -25,69 +33,108 @@ class StoreAdminRequest extends FormRequest
     {
         return [
             'first_name' => [
+                'bail',
                 'required',
                 'string',
+                'max:20',
             ],
             'last_name' => [
+                'bail',
                 'required',
                 'string',
+                'max:30',
             ],
             'email' => [
+                'bail',
                 'required',
                 'email',
-            ],
-            'address' => [
-                'required',
-                'string',
+                Rule::unique('admins', 'email'),
             ],
             'phone' => [
+                'bail',
                 'nullable',
                 'string',
                 'min:9',
                 'max:15',
+                Rule::unique('admins', 'phone'),
             ],
             'password' => [
-                'required',
-                'password',
+                'bail',
+                'string',
+                'min:8',
+                'max:255',
             ],
             'cic_number' => [
+                'bail',
                 'required',
                 'numeric',
+                'min:9',
+                'max:12',
+                Rule::unique('admins', 'cic_number'),
             ],
             'cic_front' => [
-                'nullable',
+                'bail',
                 'file',
                 'image',
             ],
             'cic_back' => [
-                'nullable',
+                'bail',
                 'file',
                 'image',
             ],
             'dob' => [
+                'bail',
                 'required',
                 'date',
             ],
             'gender' => [
+                'bail',
                 'required',
                 'numeric',
+                Rule::in(GenderEnum::getValues()),
             ],
             'avatar' => [
-                'nullable',
+                'bail',
                 'file',
                 'image',
             ],
             'role' => [
+                'bail',
                 'required',
                 'numeric',
+                Rule::in(AdminRoleEnum::getValues()),
             ],
             'status' => [
+                'bail',
                 'required',
                 'numeric',
+                Rule::in(AdminStatusEnum::getValues()),
             ],
             'station_id' => [
+                'bail',
                 'required',
                 'numeric',
+                Rule::in(Station::getIds()),
+            ],
+            'location.city_id' => [
+                'bail',
+                'required',
+                Rule::in(City::getIds()),
+            ],
+            'location.district_id' => [
+                'bail',
+                'required',
+                Rule::in(District::getIds()),
+            ],
+            'location.subdistrict_id' => [
+                'bail',
+                'required',
+                Rule::in(Subdistrict::getIds()),
+            ],
+            'location.address' => [
+                'bail',
+                'required',
+                'max:255',
             ],
         ];
     }
