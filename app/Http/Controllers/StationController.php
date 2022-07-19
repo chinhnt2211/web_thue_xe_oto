@@ -27,21 +27,9 @@ class StationController extends Controller
     public function get(Request $request)
     {
         if ($request->get('id')) {
-            $data = $this->model::with([
-                'location',
-                'location.city',
-                'location.district',
-                'location.subdistrict'
-            ])
-                ->find($request->get('id'));
+            $data = $this->model::findWithAll($request->get('id'));
         } else {
-            $data = $this->model::with([
-                'location',
-                'location.city',
-                'location.district',
-                'location.subdistrict'
-            ])
-                ->orderBy('id', 'desc')
+            $data = $this->model::latestWithAll()
                 ->paginate();
         }
 
