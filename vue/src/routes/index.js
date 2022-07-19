@@ -62,26 +62,37 @@ const routes = [
     // -------------------------- User Routes --------------------------------
     {
         path: "/",
-        // component: () => import('@/layouts/Default.vue'),
-        meta: {
-            requiresAuth: true
-        },
+        name: "Default", 
+        component: () => import('@/layouts/Default.vue'),
+        redirect: "/home",
+        children: [
+            {
+                path: "/home",
+                name: "Home",
+                component: () => import("@/views/Home.vue"),
+            },
+            {
+                path: "/search",
+                name: "Search",
+                component: () => import("@/views/Search.vue"),
+            }
+        ]
     },
     {
         path: "/auth",
         name: "Auth",
         redirect: "/auth/login",
-        component: () => import("@/layouts/user/Auth.vue"),
+        component: () => import("@/layouts/Auth.vue"),
         children: [
             {
                 path: "/auth/login",
                 name: "SignIn",
-                component: () => import("@/views/user/SignIn.vue"),
+                component: () => import("@/views/auth/SignIn.vue"),
             },
             {
                 path: "/auth/register",
                 name: "SignUp",
-                component: () => import("@/views/user/SignUp.vue"),
+                component: () => import("@/views/auth/SignUp.vue"),
             },
         ],
     },
@@ -105,6 +116,16 @@ router.beforeEach((to, from) => {
             name: 'SignIn',
             // save the location we were at to come back later
         }
+    };
+    if (!userStore.isLoggedIn && localStorage.hasOwnProperty('access_token')){
+        userStore.getInfo(localStorage['access_token'])
+        .then(()=>{
+            userStore.accessToken = localStorage['access_token'];
+        })
+        .catch(error =>{
+            localStorage.removeItem('access_token');
+            console.log(error);
+        })
     }
 })
 

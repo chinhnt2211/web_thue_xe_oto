@@ -92,7 +92,7 @@ Route::prefix('/user')
     ->group(function ($router){
         Route::post('/logout', 'logout');
         Route::post('/refresh', 'refresh');
-        Route::post('/me', 'me');
+        Route::get('/me', 'me');
         Route::post('/change-pass', 'changePassWord');
 });
 

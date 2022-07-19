@@ -4,13 +4,13 @@ import router from '@/routes'
 export const userAuthStore = defineStore('users', {
     state: () => {
         return {
-            user : null,
+            user: null,
             accessToken: "",
             isLoggedIn: false,
             returnUrl: null,
         }
     },
-
+    // userAxios : /api/user
     actions: {
         async registerUser(params) {
             let response = await userAxios.post('/register', params);
@@ -34,10 +34,13 @@ export const userAuthStore = defineStore('users', {
 
 
             router.push(this.returnUrl || '/');
+        },
+        async getInfo(accessToken) {
+            let response = await userAxios.get('/me', { headers: {"Authorization" : `Bearer ${accessToken}`}});
+            this.user = response.data;
+            console.log(response);
+            this.isLoggedIn = true;
         }
-        // checkAccessToken() {
-
-        // }
     }
 
 })
