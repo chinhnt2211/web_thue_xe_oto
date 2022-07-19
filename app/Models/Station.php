@@ -21,18 +21,30 @@ class Station extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public static function withAll()
+    public static function getIds()
+    {
+        return self::get()->pluck('id');
+    }
+
+    public static function findWithAll($id = null)
     {
         return self::with([
             'location',
             'location.city',
             'location.district',
             'location.subdistrict'
-        ]);
+        ])
+        ->find($id);
     }
-    
-    public function latest($column = 'created_at')
+
+    public static function latestWithAll()
     {
-        return $this->orderBy($column, 'desc');
+        return self::with([
+            'location',
+            'location.city',
+            'location.district',
+            'location.subdistrict'
+        ])
+        ->orderBy('created_at', 'desc');
     }
 }

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
+
+    public $fillable = [
+        'name',
+    ];
+
+    public static function getIds()
+    {
+        return self::get()->pluck('id');
+    }
 }

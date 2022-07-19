@@ -9,4 +9,11 @@ class District extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    public static function getIds()
+    {
+        return self::get()->pluck('id');
+    }
+
 }

@@ -36,4 +36,23 @@ class Vehicle extends Model
     {
         return $this->belongsTo(SeatingCapacity::class, 'seating_capacity_id');
     }
+
+    public static function findWithAll($id = null)
+    {
+        return self::with([
+            'station',
+            'brand',
+            'seatingCapacity',
+        ])->find($id);
+    }
+
+    public static function latestWithAll($id = null)
+    {
+        return self::orderBy('created_at', 'desc')
+        ->with([
+            'station',
+            'brand',
+            'seatingCapacity',
+        ]);
+    }
 }

@@ -30,14 +30,14 @@ class Admin extends Authenticatable
         'station_id',
     ];
 
-    public function avatar()
-    {
-        return $this->belongsTo(Image::class, 'avatar');
-    }
-
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function avatar()
+    {
+        return $this->belongsTo(Image::class, 'avatar');
     }
 
     public function cic_front()
@@ -55,9 +55,9 @@ class Admin extends Authenticatable
         return $this->belongsTo(Station::class);
     }
 
-    public function withAll()
+    public static function findWithAll($id = null)
     {
-        return $this::with([
+        return self::with([
             'avatar',
             'cic_front',
             'cic_back',
@@ -66,11 +66,18 @@ class Admin extends Authenticatable
             'location.district',
             'location.subdistrict',
             'station',
-        ]);
+        ])
+        ->find($id);
     }
 
-    public function latest($column = 'created_at')
+    public static function latestWithLess()
     {
-        return $this->orderBy($column, 'desc');
+        return self::orderBy('created_at', 'desc')
+            ->with([
+                'avatar',
+                'station',
+            ]);
     }
+
+
 }
