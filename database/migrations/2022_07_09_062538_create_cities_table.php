@@ -18,9 +18,7 @@ class CreateCitiesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('type');
-
             $table->string('name_with_type');
-            
         });
     }
 
