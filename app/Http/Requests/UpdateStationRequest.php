@@ -13,7 +13,7 @@ class UpdateStationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,35 @@ class UpdateStationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required',
+                'string',
+                'max:50',
+            ],
+            'city_id' => [
+                'required',
+            ],
+            'district_id' => [
+                'required',
+            ],
+            'subdistrict_id' => [
+                'required',
+            ],
+            'address' => [
+                'required',
+                'max:255',
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:15',
+            ],
+            'capacity' => [
+                'required',
+                'integer',
+                'min:0',
+                'max:100',
+            ],
         ];
     }
 }

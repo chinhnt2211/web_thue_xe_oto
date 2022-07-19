@@ -12,8 +12,13 @@ class Station extends Model
 
     public $fillable = [
         'name',
-        'address',
+        'location_id',
         'phone',
         'capacity',
     ];
+    
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

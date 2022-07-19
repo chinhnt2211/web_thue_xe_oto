@@ -22,10 +22,12 @@ class VehicleController extends Controller
     public function get(Request $request)
     {
         if($request->get('id')) {
-            return $this->model::where('id', $request->get('id'))->first();
+            $data = $this->model::find($request->get('id'));
+        } else {
+            $data = $this->model::paginate();
         }
 
-        return $this->model::paginate();
+        return response($data);
     }
 
     /**
@@ -36,10 +38,13 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-
-        (new $this->model)->fill($request->validate())->save();
-
-        return response("success", 200);
+        try {
+            (new $this->model)->fill($request->validated())->save();
+        } catch (\Throwable $th) {
+            return response($th->getMessage(), 500);
+        }
+        
+        return response("success");
     }
 
     /**
@@ -51,9 +56,13 @@ class VehicleController extends Controller
      */
     public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
     {
-        $vehicle->fill($request->validate())->save();
+        try {
+            $vehicle->fill($request->validated())->save();
+        } catch (\Throwable $th) {
+            return response($th->getMessage(), 500);
+        }
 
-        return response("success", 200);
+        return response("success");
     }
 
     /**
@@ -64,8 +73,12 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        $vehicle->delete();
+        try {
+            $vehicle->delete();
+        } catch (\Throwable $th) {
+            return response($th->getMessage(), 500);
+        }
 
-        return response("success", 200);
+        return response("success");
     }
 }

@@ -3,72 +3,73 @@
         <sidebar />
         <div class="relative md:ml-64 bg-blueGray-100">
             <admin-navbar />
-            <!-- <header-stats /> -->
             <div class="px-4 md:px-10 mx-auto w-full pt-24">
                 <router-view />
                 <footer-admin />
             </div>
         </div>
+        <toast/>
     </div>
 </template>
 
 <script>
-// UI/UX
+// components
 import AdminNavbar from "@/admin/components/Navbars/AdminNavbar.vue";
 import Sidebar from "@/admin/components/Sidebar/Sidebar.vue";
-import HeaderStats from "@/admin/components/Headers/HeaderStats.vue";
 import FooterAdmin from "@/admin/components/Footers/FooterAdmin.vue";
+import Toast from "@/admin/components/Toast.vue";
 
 // router
 import { useRouter, useRoute } from "vue-router";
 
 // utils
-import { adminAxios } from "@/utils/axiosUtil.js";
-import { useAuthStore } from "@/admin/utils/stores/authStore.js";
+// import { adminAxios } from "@/utils/axiosUtil.js";
+import { useAuthStore } from "@/admin/services/stores/authStore.js";
 
 export default {
     beforeRouteEnter(to, from, next) {
-        const authStore = useAuthStore();
+        const auth = useAuthStore();
 
-        if (!authStore.api_access_token) {
+        if (!auth.token) {
             next({ name: "Admin.Login" });
         }
 
-        authStore
-            .getAdmin()
+        auth.getMe()
             .then((response) => {
-                if (!authStore.admin) {
+                if (!auth.admin) {
                     next({ name: "Admin.Login" });
                 }
-                // console.log(authStore.admin)
+                // console.log(auth.admin)
                 next();
+            })
+            .catch((error) => {
+                console.log(error);
+                next({ name: "Admin.Login" })
             });
     },
     setup() {
         const router = useRouter();
         const route = useRoute();
-        const authStore = useAuthStore();
+        const auth = useAuthStore();
 
         return {
             router,
             route,
-            authStore,
+            auth,
         };
     },
     data() {
         return {
-            err: null,
-            admin: null,
+            errors: [],
         };
     },
     components: {
         AdminNavbar,
         Sidebar,
-        HeaderStats,
         FooterAdmin,
+        Toast,
     },
-    methods: {
-    },
+    methods: {},
 };
 </script>
 

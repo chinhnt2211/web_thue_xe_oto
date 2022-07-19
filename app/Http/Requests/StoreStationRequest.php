@@ -29,13 +29,13 @@ class StoreStationRequest extends FormRequest
                 'string',
                 'max:50',
             ],
-            'city' => [
+            'city_id' => [
                 'required',
             ],
-            'district' => [
+            'district_id' => [
                 'required',
             ],
-            'subdistrict' => [
+            'subdistrict_id' => [
                 'required',
             ],
             'address' => [

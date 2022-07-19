@@ -18,7 +18,7 @@ class Admin extends Authenticatable
         'first_name',
         'last_name',
         'email',
-        'address',
+        'location_id',
         'phone',
         'password',
         'cic_number',
@@ -31,4 +31,29 @@ class Admin extends Authenticatable
         'status',
         'station_id',
     ];
+
+    public function avatar()
+    {
+        return $this->belongsTo(Image::class, 'avatar');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function cic_front()
+    {
+        return $this->belongsTo(Image::class, 'cic_front');
+    }
+
+    public function cic_back()
+    {
+        return $this->belongsTo(Image::class, 'cic_back');
+    }
+
+    public function station()
+    {
+        return $this->belongsTo(Station::class);
+    }
 }
