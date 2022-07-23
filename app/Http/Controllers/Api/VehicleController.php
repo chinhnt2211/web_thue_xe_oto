@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\Vehicle;
@@ -43,7 +44,7 @@ class VehicleController extends Controller
         } catch (\Throwable $th) {
             return response($th->getMessage(), 500);
         }
-        
+
         return response("success");
     }
 

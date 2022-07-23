@@ -1,14 +1,19 @@
 import { createApp } from 'vue';
 import router from "./routes";
 import App from './App.vue';
-import { createPinia } from 'pinia'
+import { createPinia } from 'pinia';
+import VCalendar from 'v-calendar';
+import './index.css';
+import 'v-calendar/dist/style.css';
+
+
 
 const pinia = createPinia()
+const app = createApp(App)
 
-import './index.css';
+app.use(router)
+app.use(pinia)
+app.use(VCalendar, {})
 
-createApp(App)
-    .use(router)
-    .use(pinia)
-    .mount('#app');
+app.mount('#app');
 

@@ -1,9 +1,12 @@
 <template >
-    <div class="default">
-        <Navbar />
-        <router-view />
-        <Footer />
-    </div>
+    <Suspense>
+        <div id="default">
+            <navbar />
+            <router-view></router-view>
+            <Footer />
+        </div>
+    </Suspense>
+
 </template>
 
 <script>
@@ -11,14 +14,14 @@ import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 export default {
     components: {
-        Navbar,  
+        Navbar,
         Footer
     }
 }
 </script>
 
 <style>
-.default {
+#default {
     font-family: Georama;
 }
 </style>
