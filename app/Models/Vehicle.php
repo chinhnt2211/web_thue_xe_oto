@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     public $fillable = [
         'name',
@@ -36,5 +35,24 @@ class Vehicle extends Model
     public function seatingCapacity()
     {
         return $this->belongsTo(SeatingCapacity::class, 'seating_capacity_id');
+    }
+
+    public static function findWithAll($id = null)
+    {
+        return self::with([
+            'station',
+            'brand',
+            'seatingCapacity',
+        ])->find($id);
+    }
+
+    public static function latestWithAll($id = null)
+    {
+        return self::orderBy('created_at', 'desc')
+        ->with([
+            'station',
+            'brand',
+            'seatingCapacity',
+        ]);
     }
 }

@@ -49,8 +49,6 @@ export const useStationsStore = defineStore("stationsStore", {
             this.currentStation = data;
         },
         async store(station) {
-            delete(station.location.id)
-            station = Object.assign(station, station.location);
             // console.log(station);
             const response = await baseAxios.post(`/stations/store`, 
             station, {
@@ -62,9 +60,7 @@ export const useStationsStore = defineStore("stationsStore", {
             return response;
         },
         async update(station) {
-            delete(station.location.id)
-            station = Object.assign(station, station.location);
-            console.log(station);
+            // console.log(station);
             const response = await baseAxios.put(`/stations/update/${station.id}`, 
             station, {
                 headers: {

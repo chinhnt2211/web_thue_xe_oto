@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('vehicle_images', function (Blueprint $table) {
             $table->foreignId('vehicle_id')->constrained();
             $table->foreignId('image_id')->constrained();
-
+            $table->timestamps();
         });
     }
 

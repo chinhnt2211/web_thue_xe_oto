@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Station extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     public $fillable = [
         'name',
@@ -16,9 +15,36 @@ class Station extends Model
         'phone',
         'capacity',
     ];
-    
+
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public static function getIds()
+    {
+        return self::get()->pluck('id');
+    }
+
+    public static function findWithAll($id = null)
+    {
+        return self::with([
+            'location',
+            'location.city',
+            'location.district',
+            'location.subdistrict'
+        ])
+        ->find($id);
+    }
+
+    public static function latestWithAll()
+    {
+        return self::with([
+            'location',
+            'location.city',
+            'location.district',
+            'location.subdistrict'
+        ])
+        ->orderBy('created_at', 'desc');
     }
 }

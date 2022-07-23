@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('location_id');
             $table->string('phone',15);
             $table->Integer('capacity');
+            $table->timestamps();
         });
     }
 

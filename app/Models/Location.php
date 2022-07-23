@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     public $fillable = [
         'city_id',

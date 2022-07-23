@@ -12,8 +12,6 @@ class Admin extends Authenticatable
 {
     use HasFactory, HasApiTokens;
 
-    public $timestamps = false;
-
     public $fillable = [
         'first_name',
         'last_name',
@@ -32,14 +30,14 @@ class Admin extends Authenticatable
         'station_id',
     ];
 
-    public function avatar()
-    {
-        return $this->belongsTo(Image::class, 'avatar');
-    }
-
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function avatar()
+    {
+        return $this->belongsTo(Image::class, 'avatar');
     }
 
     public function cic_front()
@@ -56,4 +54,30 @@ class Admin extends Authenticatable
     {
         return $this->belongsTo(Station::class);
     }
+
+    public static function findWithAll($id = null)
+    {
+        return self::with([
+            'avatar',
+            'cic_front',
+            'cic_back',
+            'location',
+            'location.city',
+            'location.district',
+            'location.subdistrict',
+            'station',
+        ])
+        ->find($id);
+    }
+
+    public static function latestWithLess()
+    {
+        return self::orderBy('created_at', 'desc')
+            ->with([
+                'avatar',
+                'station',
+            ]);
+    }
+
+
 }
