@@ -1,17 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Api\StationController;
 use App\Http\Controllers\Api\User\AuthUserController;
+use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\EnumController;
-use App\Http\Controllers\StationController;
-use App\Http\Controllers\VehicleController;
-use App\Models\Admin;
-use App\Models\Location;
-use App\Models\Station;
-use App\Models\Vehicle;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,7 +100,7 @@ Route::prefix('/user')
     ->group(function ($router) {
         Route::post('/logout', 'logout');
         Route::post('/refresh', 'refresh');
-        Route::post('/me', 'me');
+        Route::get('/me', 'me');
         Route::post('/change-pass', 'changePassWord');
     });
 

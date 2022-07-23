@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { userAxios } from '@/utils/axiosUtil';
 import router from '@/routes'
-export const userAuthStore = defineStore('users', {
+export const vehicleStore = defineStore('vehicle', {
     state: () => {
         return {
-            user: null,
-            accessToken: "",
+            vehicle: null,
+            brand: "",
             isLoggedIn: false,
             returnUrl: null,
         }
