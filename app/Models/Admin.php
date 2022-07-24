@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\AdminRoleEnum;
 use App\Enums\GenderEnum;
+use Attribute;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,20 @@ class Admin extends Authenticatable
         'status',
         'station_id',
     ];
+
+    protected function genderName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => GenderEnum::getKey($attributes->gender),
+        );
+    }
+
+    protected function roleName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => AdminRoleEnum::getKey($attributes->role),
+        );
+    }
 
     public function location()
     {
@@ -81,12 +96,12 @@ class Admin extends Authenticatable
                 'avatar',
                 'station',
             ])
+            ->append([
+                'genderName',
+                'roleName',
+            ])
             ->paginate();;
 
-        foreach($data as $each) {
-            $each->gender = GenderEnum::getKey(intval($each->gender));
-            $each->role = AdminRoleEnum::getKey(intval($each->role));
-        }
 
         return $data;
     }
