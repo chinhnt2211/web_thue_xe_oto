@@ -4,11 +4,11 @@ import { useAuthStore } from "@/admin/services/stores/authStore.js";
 
 const auth = useAuthStore();
 
-export const useStationsStore = defineStore("stationsStore", {
+export const useStaffsStore = defineStore("StaffsStore", {
     state: () => {
         return {
-            stations: [],
-            currentStation: null,
+            staffs: [],
+            currentStaff: null,
             links: null,
             currentPage: 1,
             lastPage: 1,
@@ -17,52 +17,59 @@ export const useStationsStore = defineStore("stationsStore", {
         };
     },
     getters: {
-        station(state) {
-            return state.currentStation;
+        staff(state) {
+            return state.currentStaff;
         },
     },
     actions: {
-        async fetchStations(page = this.currentPage) {
+        async fetchStaffs(page = this.currentPage) {
             // console.log(page);
-            const response = await baseAxios.get(`/stations/get`, {
+            const response = await baseAxios.get(`/admins/get`, {
                 params: {
                     page,
+                },
+                headers: {
+                    Authorization: `Bearer ${auth.token}`,
                 },
             });
             console.log(response);
             const data = response.data;
-            this.stations = data.data;
+            this.staffs = data.data;
             this.lastPage = data.last_page;
             this.links = data.links;
             this.prevPage = !!data.prev_page_url;
             this.nextPage = !!data.next_page_url;
         },
-        async fetchStation(id = null) {
+        async fetchStaff(id = null) {
             // console.log(id)
-            const response = await baseAxios.get(`/stations/get`, {
+            const response = await baseAxios.get(`/admins/get`, {
                 params: {
                     id,
+                },
+                headers: {
+                    Authorization: `Bearer ${auth.token}`,
                 },
             });
             const data = response.data;
             // console.log(data);
-            this.currentStation = data;
+            this.currentStaff = data;
         },
-        async store(station) {
-            // console.log(station);
-            const response = await baseAxios.post(`/stations/store`, 
-            station, {
+        async store(staff) {
+            console.log(staff);
+            const response = await baseAxios.post(`/admins/store`, 
+            staff, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
+                    // 'Content-Type': 'multipart/form-data'
                 },
             });
             // console.log(response);
             return response;
         },
-        async update(station) {
-            // console.log(station);
-            const response = await baseAxios.put(`/stations/update/${station.id}`, 
-            station, {
+        async update(staff) {
+            // console.log(staff);
+            const response = await baseAxios.put(`/admins/update/${staff.id}`, 
+            staff, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
@@ -72,7 +79,7 @@ export const useStationsStore = defineStore("stationsStore", {
         },
         async destroy(id) {
             console.log(id);
-            const response = await baseAxios.delete(`/stations/destroy/${id}`, 
+            const response = await baseAxios.delete(`/admins/destroy/${id}`, 
             {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
@@ -85,7 +92,7 @@ export const useStationsStore = defineStore("stationsStore", {
             if(page < 1 || page > this.lastPage) {
                 return;
             }
-            await this.fetchStations(page);
+            await this.fetchStaffs(page);
             this.currentPage = page;
         },
         toNextPage() {

@@ -28,18 +28,18 @@ class AdminController extends Controller
     public function get(Request $request)
     {
         if ($request->get('id')) {
-            $data = Admin::findWithAll($request->get('id'));
+            $data = Admin::findWithAll();
+            return response($data);
         } else {
-            $data = Admin::latestWithLess()
-                ->paginate();
+            $data = Admin::latestWithLess();
+            return response($data);
         }
-
-        return response($data);
     }
 
     public function store(StoreAdminRequest $request)
-    {
-        // return $request->validated();
+    {   
+        return response($request->file('avatar'), 444);
+        return response($request->all(), 444);
         DB::beginTransaction();
         try {
             $admin = new Admin();
@@ -47,49 +47,22 @@ class AdminController extends Controller
             $admin->password = Hash::make($admin->password);
             $admin->save();
 
-            $location = new Location();
-            $location->type = 0;
-            $location->fill($request->validated())->save();
-            $admin->location_id = $location->id;
+            $admin->location_id = Location::create($request->validated()['location'], 0);
 
-            if($request->file('avatar')) {
-                $image = new Image();
-                $image->type = ImageTypeEnum::AVATAR;
-                $image->link = $request->file('avatar')
-                    ->storeAs('admins/' . $admin->id, 'avatar' . '.' . $request->file('avatar')->extension());
-                $image->save();
-                $admin->avatar = $image->id;
-                // return $image;
-            }
-            
-            if($request->file('cic_front')) {
-                $image = new Image();
-                $image->type = ImageTypeEnum::CIC_FRONT;
-                $image->link = $request->file('cic_front')
-                    ->storeAs('admins/' . $admin->id, 'cic_front' . '.' . $request->file('avatar')->extension());
-                $image->save();
-                $admin->cic_front = $image->id;
-            }
-            
-            if($request->file('cic_back')) {
-                $image = new Image();
-                $image->type = ImageTypeEnum::CIC_BACK;
-                $image->link = $request->file('cic_back')
-                    ->storeAs('admins/' . $admin->id, 'cic_back' . '.' . $request->file('avatar')->extension());
-                $image->save();
-                $admin->cic_back = $image->id;
-            }
-            
+            $admin->avatar = Image::create($request->file('avatar'), 'avatar', $admin);
+            $admin->cic_front = Image::create($request->file('cic_front'), 'cic_front', $admin);
+            $admin->cic_back = Image::create($request->file('cic_back'), 'cic_back', $admin);
+
 
             $admin->save();
 
             DB::commit();
+
+            return response("success");
         } catch (\Throwable $th) {
             DB::rollBack();
             return response($th->getMessage(), 500);
         }
-
-        return response("success");
     }
 
     public function update(UpdateAdminRequest $request, Admin $admin)
@@ -99,42 +72,30 @@ class AdminController extends Controller
             $admin->fill($request->validated())->save();
             Location::find($admin->location_id)->fill($request->validated())->save();
 
+            if ($request->file('avatar')) {
+                Image::find($admin->avatar)->delete();
+                $admin->avatar = Image::create($request->file('avatar'), 'avatar', $admin);
+            }
 
-            if($request->file('avatar')) {
-                $image = new Image();
-                $image->type = ImageTypeEnum::AVATAR;
-                $image->link = $request->file('avatar')
-                    ->storeAs('admins/' . $admin->id, 'avatar' . $request->file('avatar')->extension());
-                $image->save();
-                $admin->avatar = $image->id;
-                // return $image;
+            if ($request->file('cic_front')) {
+                Image::find($admin->cic_front)->delete();
+                $admin->cic_front = Image::create($request->file('cic_front'), 'cic_front', $admin);
             }
-            
-            if($request->file('cic_front')) {
-                $image = new Image();
-                $image->type = ImageTypeEnum::CIC_FRONT;
-                $image->link = $request->file('cic_front')
-                    ->storeAs('admins/' . $admin->id, 'cic_front' . $request->file('avatar')->extension());
-                $image->save();
-                $admin->cic_front = $image->id;
+
+            if ($request->file('cic_back')) {
+                Image::find($admin->cic_back)->delete();
+                $admin->cic_back = Image::create($request->file('cic_back'), 'cic_back', $admin);
             }
-            
-            if($request->file('cic_back')) {
-                $image = new Image();
-                $image->type = ImageTypeEnum::CIC_BACK;
-                $image->link = $request->file('cic_back')
-                    ->storeAs('admins/' . $admin->id, 'cic_back' . $request->file('avatar')->extension());
-                $image->save();
-                $admin->cic_back = $image->id;
-            }
+
+            $admin->save();
 
             DB::commit();
+
+            return response("success");
         } catch (\Throwable $th) {
             DB::rollBack();
             return response($th->getMessage(), 500);
         }
-
-        return response("success");
     }
 
     public function destroy(Admin $admin)
@@ -152,14 +113,13 @@ class AdminController extends Controller
             Image::find($avatar)->delete();
             Image::find($cic_front)->delete();
             Image::find($cic_back)->delete();
-            Storage::deleteDirectory('admins/' . $id);
 
             DB::commit();
+
+            return response("success");
         } catch (\Throwable $th) {
             DB::rollBack();
             return response($th->getMessage(), 500);
         }
-
-        return response("success");
     }
 }

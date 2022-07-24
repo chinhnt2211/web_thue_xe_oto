@@ -28,23 +28,36 @@ class Station extends Model
 
     public static function findWithAll($id = null)
     {
-        return self::with([
+        $data = self::with([
             'location',
             'location.city',
             'location.district',
             'location.subdistrict'
         ])
-        ->find($id);
+            ->find(request()->get('id'));
+
+        return $data;
     }
 
     public static function latestWithAll()
     {
-        return self::with([
+        $data = self::with([
             'location',
             'location.city',
             'location.district',
             'location.subdistrict'
         ])
-        ->orderBy('created_at', 'desc');
+            ->orderBy('created_at', 'desc')
+            ->paginate();
+
+        foreach($data as $each) {
+            $each->address = 
+                ($each->location->city ? $each->location->city->name : '') . ', ' .
+                ($each->location->district ? $each->location->district->name : '') . ', ' .
+                ($each->location->subdistrict ? $each->location->subdistrict->name : '') . ', ' .
+                $each->location->address;
+        }
+
+        return $data;
     }
 }

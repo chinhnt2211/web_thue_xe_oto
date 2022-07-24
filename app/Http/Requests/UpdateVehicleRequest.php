@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\VehicleStatusEnum;
+use App\Models\Station;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateVehicleRequest extends FormRequest
 {
@@ -25,42 +28,56 @@ class UpdateVehicleRequest extends FormRequest
     {
         return [
             'name' => [
+                'bail',
                 'required',
                 'string',
             ],
             'status' => [
+                'bail',
                 'required',
                 'numeric',
+                Rule::in(VehicleStatusEnum::getValues()),
             ],
             'description' => [
+                'bail',
                 'required',
                 'string',
+                // 'max:1024',
             ],
             'license_number' => [
+                'bail',
                 'required',
                 'string',
             ],
             'price' => [
+                'bail',
                 'required',
                 'numeric',
             ],
             'rent_price' => [
+                'bail',
                 'required',
                 'numeric',
             ],
             'fine' => [
+                'bail',
                 'required',
                 'numeric',
             ],
             'station_id' => [
+                'bail',
                 'required',
                 'numeric',
+                Rule::in(Station::getIds()),
             ],
             'brand_id' => [
+                'bail',
                 'required',
                 'numeric',
+                // Rule::in(Brand::getIds()),
             ],
             'seating_capacities_id' => [
+                'bail',
                 'required',
                 'numeric',
             ],

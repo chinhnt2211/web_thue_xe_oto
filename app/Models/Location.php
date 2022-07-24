@@ -29,4 +29,13 @@ class Location extends Model
     {
         return $this->belongsTo(Subdistrict::class);
     }
+
+    public static function create($params, $type)
+    {
+        $model = new self;
+        $model->fill($params);
+        $model->type = $type;
+        $model->save();
+        return $model->id;
+    }
 }

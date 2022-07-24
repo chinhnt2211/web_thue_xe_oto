@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\AdminRoleEnum;
+use App\Enums\GenderEnum;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -57,7 +59,7 @@ class Admin extends Authenticatable
 
     public static function findWithAll($id = null)
     {
-        return self::with([
+        $data = self::with([
             'avatar',
             'cic_front',
             'cic_back',
@@ -67,17 +69,25 @@ class Admin extends Authenticatable
             'location.subdistrict',
             'station',
         ])
-        ->find($id);
+            ->find(request()->get('id'));
+
+        return $data;
     }
 
     public static function latestWithLess()
     {
-        return self::orderBy('created_at', 'desc')
+        $data = self::orderBy('created_at', 'desc')
             ->with([
                 'avatar',
                 'station',
-            ]);
+            ])
+            ->paginate();;
+
+        foreach($data as $each) {
+            $each->gender = GenderEnum::getKey(intval($each->gender));
+            $each->role = AdminRoleEnum::getKey(intval($each->role));
+        }
+
+        return $data;
     }
-
-
 }

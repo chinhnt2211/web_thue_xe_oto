@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminLoginRequest;
 use App\Models\Image;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,27 +21,9 @@ class AuthController extends Controller
         return response($admin);
     }
 
-    public function login(Request $request)
+    public function login(AdminLoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-            ],
-            'password' => [
-                'required',
-                'string',
-                'min:6',
-                'max:255',
-            ]
-        ]);
-
-        if ($validator->fails()) {
-            return response('Something wrong happened', 422);
-        }
-
-        if (!Auth::guard('api_admin')->attempt($validator->validated())) {
+        if (!Auth::guard('api_admin')->attempt($request->validated())) {
             return response('Unauthorized', 401);
         }
 

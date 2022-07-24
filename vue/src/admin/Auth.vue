@@ -36,6 +36,12 @@
                                                 name="email"
                                                 v-model="model.email"
                                             />
+                                            <div
+                                                v-if="v$.model.email.$error"
+                                                class="text-sm text-red-500"
+                                            >
+                                                {{ v$.model.email.$errors[0].$message }}
+                                            </div>
                                         </div>
 
                                         <div class="relative w-full mb-3">
@@ -52,6 +58,12 @@
                                                 name="password"
                                                 v-model="model.password"
                                             />
+                                            <div
+                                                v-if="v$.model.password.$error"
+                                                class="text-sm text-red-500"
+                                            >
+                                                {{ v$.model.password.$errors[0].$message }}
+                                            </div>
                                         </div>
                                         <!-- <div>
                                             <label
@@ -108,33 +120,27 @@
     </div>
 </template>
 <script>
-// UI/UX
 import Navbar from "@/admin/components/Navbars/AuthNavbar.vue";
 import FooterSmall from "@/admin/components/Footers/FooterSmall.vue";
-import Toast from "@/admin/components/Toast.vue";
 
 import registerBg2 from "@/admin/assets/img/register_bg_2.png";
 
-// router
 import { useRouter, useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
+import useVuelidate from "@vuelidate/core";
+import { required, email, minLength, maxLength } from "@vuelidate/validators";
 
-// utils
 // import { adminAxios } from "@/utils/axiosUtil.js";
 import { useAuthStore } from "@/admin/services/stores/authStore.js";
-import { useToastsStore } from "@/admin/services/stores/toastsStore.js";
 
 export default {
     setup() {
-        const router = useRouter();
-        const route = useRoute();
-        const auth = useAuthStore();
-        const toasts = useToastsStore();
-
         return {
-            router,
-            route,
-            auth,
-            toasts,
+            router: useRouter(),
+            route: useRoute(),
+            auth: useAuthStore(),
+            toast: useToast(),
+            v$: useVuelidate(),
         };
     },
     data() {
@@ -149,14 +155,35 @@ export default {
             },
         };
     },
+    validations() {
+        return {
+            model: {
+                email: {
+                    required,
+                    email,
+                },
+                password: {
+                    required,
+                    minLength: minLength(8),
+                },
+            },
+        };
+    },
     components: {
         Navbar,
         FooterSmall,
-        Toast,
     },
     methods: {
         async loginHandler() {
             this.loading = true;
+
+            await this.v$.$validate();
+
+            if(this.v$.$error) {
+                this.loading = false;
+                return;
+            }
+
             await this.auth
                 .login(this.model)
                 .then((response) => {
@@ -165,12 +192,20 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
-                    this.toasts.notify(error.response?.data, 'danger');
+                    this.toast.error(
+                        error.response?.data?.message ||
+                            error.response?.data ||
+                            "Something wrong happend"
+                    );
                 });
 
             // console.log(this.auth.token)
             this.loading = false;
         },
+    },
+    created() {
+        // this.toast.warning("I'm a test toast!");
+        // console.log(this.v$.model)
     },
 };
 </script>

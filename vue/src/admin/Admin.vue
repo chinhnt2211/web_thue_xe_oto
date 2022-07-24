@@ -13,17 +13,13 @@
 </template>
 
 <script>
-// components
 import AdminNavbar from "@/admin/components/Navbars/AdminNavbar.vue";
 import Sidebar from "@/admin/components/Sidebar/Sidebar.vue";
 import FooterAdmin from "@/admin/components/Footers/FooterAdmin.vue";
-import Toast from "@/admin/components/Toast.vue";
 
-// router
 import { useRouter, useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
 
-// utils
-// import { adminAxios } from "@/utils/axiosUtil.js";
 import { useAuthStore } from "@/admin/services/stores/authStore.js";
 
 export default {
@@ -51,11 +47,13 @@ export default {
         const router = useRouter();
         const route = useRoute();
         const auth = useAuthStore();
+        const toast = useToast();
 
         return {
             router,
             route,
             auth,
+            toast,
         };
     },
     data() {
@@ -67,7 +65,6 @@ export default {
         AdminNavbar,
         Sidebar,
         FooterAdmin,
-        Toast,
     },
     methods: {},
 };

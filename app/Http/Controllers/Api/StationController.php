@@ -26,10 +26,9 @@ class StationController extends Controller
     public function get(Request $request)
     {
         if ($request->get('id')) {
-            $data = $this->model::findWithAll($request->get('id'));
+            $data = $this->model::findWithAll();
         } else {
-            $data = $this->model::latestWithAll()
-                ->paginate();
+            $data = $this->model::latestWithAll();
         }
 
         return response($data);
@@ -43,12 +42,12 @@ class StationController extends Controller
      */
     public function store(StoreStationRequest $request)
     {
-        return $request->validated();
+        // return $request->validated()['location'];
         DB::beginTransaction();
         try {
             $location = new Location();
             $location->type = 1;
-            $location->fill($request->validated())->save();
+            $location->fill($request->validated()['location'])->save();
             // return $location;
 
             $station = new Station();
@@ -77,7 +76,7 @@ class StationController extends Controller
         // return $request->validated();
         try {
             $station->fill($request->validated())->save();
-            Location::find($station->location_id)->fill($request->validated())->save();
+            Location::find($station->location_id)->fill($request->validated()['location'])->save();
         } catch (\Throwable $th) {
             return response($th->getMessage(), 500);
         }
