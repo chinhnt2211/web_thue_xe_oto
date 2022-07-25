@@ -36,12 +36,7 @@ class Image extends Model
     {
         $model = new self;
         $model->type = ImageTypeEnum::getValue(Str::upper($type));
-        
-        do {
-            $name = Hash::make(time()).'.'.$file->extension();
-        } while(Storage::exists('images/'.$name));
-
-        $model->link = $file->storeAs('images/', $name);
+        $model->link = $file->storeAs('images/');
         $model->save();
         return $model->id;
     }

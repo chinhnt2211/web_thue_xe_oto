@@ -36,21 +36,21 @@ class AdminController extends Controller
 
     public function store(StoreAdminRequest $request)
     {   
-        return response($request->file('avatar'), 444);
-        return response($request->all(), 444);
+        // return response($request->file('avatar'), 444);
+        // return response($request->all(), 444);
         DB::beginTransaction();
         try {
             $admin = new Admin();
             $admin->fill($request->except('avatar', 'cic_front', 'cic_back'));
             $admin->password = Hash::make($admin->password);
             $admin->save();
+dd('here');
 
-            $admin->location_id = Location::create($request->validated()['location'], 0);
+            $admin->location_id = Location::create($request->validated(), 0);
 
             $admin->avatar = Image::create($request->file('avatar'), 'avatar', $admin);
             $admin->cic_front = Image::create($request->file('cic_front'), 'cic_front', $admin);
             $admin->cic_back = Image::create($request->file('cic_back'), 'cic_back', $admin);
-
 
             $admin->save();
 

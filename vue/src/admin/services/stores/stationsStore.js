@@ -49,9 +49,10 @@ export const useStationsStore = defineStore("stationsStore", {
             this.currentStation = data;
         },
         async store(station) {
+            const data = Object.assign(station, station.location);
             // console.log(station);
             const response = await baseAxios.post(`/stations/store`, 
-            station, {
+            data, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
@@ -60,9 +61,11 @@ export const useStationsStore = defineStore("stationsStore", {
             return response;
         },
         async update(station) {
+            const id = station.id;
+            const data = Object.assign(station, station.location);
             // console.log(station);
-            const response = await baseAxios.put(`/stations/update/${station.id}`, 
-            station, {
+            const response = await baseAxios.put(`/stations/update/${id}`, 
+            data, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
@@ -71,7 +74,7 @@ export const useStationsStore = defineStore("stationsStore", {
             return response;
         },
         async destroy(id) {
-            console.log(id);
+            // console.log(id);
             const response = await baseAxios.delete(`/stations/destroy/${id}`, 
             {
                 headers: {

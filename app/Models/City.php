@@ -12,6 +12,7 @@ class City extends Model
     public $timestamps = false;
 
     protected $visible = [
+        "id",
         "name",
         "slug",
         "type",

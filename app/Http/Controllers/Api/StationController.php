@@ -26,7 +26,7 @@ class StationController extends Controller
     public function get(Request $request)
     {
         if ($request->get('id')) {
-            return response($this->model::find($request->get('id')));
+            return response($this->model::findWithAll());
         } else {
             return response($this->model::latestPaginate());
         }
@@ -45,7 +45,7 @@ class StationController extends Controller
         try {
             $location = new Location();
             $location->type = 1;
-            $location->fill($request->validated()['location'])->save();
+            $location->fill($request->validated())->save();
             // return $location;
 
             $station = new Station();
@@ -71,10 +71,10 @@ class StationController extends Controller
      */
     public function update(UpdateStationRequest $request, Station $station)
     {
-        // return $request->validated();
+        // return response($request->validated(), 444);
         try {
             $station->fill($request->validated())->save();
-            Location::find($station->location_id)->fill($request->validated()['location'])->save();
+            Location::find($station->location_id)->fill($request->validated())->save();
         } catch (\Throwable $th) {
             return response($th->getMessage(), 500);
         }

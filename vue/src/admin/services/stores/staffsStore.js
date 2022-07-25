@@ -55,21 +55,24 @@ export const useStaffsStore = defineStore("StaffsStore", {
             this.currentStaff = data;
         },
         async store(staff) {
-            console.log(staff);
+            const data = Object.assign(staff, staff.location);
+            // console.log(staff);
             const response = await baseAxios.post(`/admins/store`, 
-            staff, {
+            data, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
-                    // 'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data'
                 },
             });
             // console.log(response);
             return response;
         },
         async update(staff) {
+            const id = staff.id;
+            const data = Object.assign(staff, staff.location);
             // console.log(staff);
             const response = await baseAxios.put(`/admins/update/${staff.id}`, 
-            staff, {
+            data, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },

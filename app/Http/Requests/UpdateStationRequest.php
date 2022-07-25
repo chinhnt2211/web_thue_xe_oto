@@ -48,22 +48,22 @@ class UpdateStationRequest extends FormRequest
                 'min:0',
                 'max:500',
             ],
-            'location.city_id' => [
+            'city_id' => [
                 'bail',
                 'required',
                 Rule::in(City::getIds()),
             ],
-            'location.district_id' => [
+            'district_id' => [
                 'bail',
                 'required',
                 Rule::in(District::getIds()),
             ],
-            'location.subdistrict_id' => [
+            'subdistrict_id' => [
                 'bail',
                 'required',
                 Rule::in(Subdistrict::getIds()),
             ],
-            'location.address' => [
+            'address' => [
                 'bail',
                 'required',
                 'max:255',

@@ -55,7 +55,9 @@
                                     v-if="v$.stationModel.name.$error"
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.name.$errors[0].$message }}
+                                    {{
+                                        v$.stationModel.name.$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -76,7 +78,10 @@
                                     v-if="v$.stationModel.capacity.$error"
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.capacity.$errors[0].$message }}
+                                    {{
+                                        v$.stationModel.capacity.$errors[0]
+                                            .$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -110,10 +115,15 @@
                                     </option>
                                 </select>
                                 <div
-                                    v-if="v$.stationModel.location.city_id.$error"
+                                    v-if="
+                                        v$.stationModel.location.city_id.$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.city_id.$errors[0].$message }}
+                                    {{
+                                        v$.stationModel.location.city_id
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -138,10 +148,16 @@
                                     </option>
                                 </select>
                                 <div
-                                    v-if="v$.stationModel.location.district_id.$error"
+                                    v-if="
+                                        v$.stationModel.location.district_id
+                                            .$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.district_id.$errors[0].$message }}
+                                    {{
+                                        v$.stationModel.location.district_id
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -168,10 +184,16 @@
                                     </option>
                                 </select>
                                 <div
-                                    v-if="v$.stationModel.location.subdistrict_id.$error"
+                                    v-if="
+                                        v$.stationModel.location.subdistrict_id
+                                            .$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.subdistrict_id.$errors[0].$message }}
+                                    {{
+                                        v$.stationModel.location.subdistrict_id
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -189,10 +211,15 @@
                                     v-model="stationModel.location.address"
                                 />
                                 <div
-                                    v-if="v$.stationModel.location.address.$error"
+                                    v-if="
+                                        v$.stationModel.location.address.$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.address.$errors[0].$message }}
+                                    {{
+                                        v$.stationModel.location.address
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -222,7 +249,10 @@
                                     v-if="v$.stationModel.phone.$error"
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.phone.$errors[0].$message }}
+                                    {{
+                                        v$.stationModel.phone.$errors[0]
+                                            .$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -260,7 +290,14 @@
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 import useVuelidate from "@vuelidate/core";
-import { required, email, minLength, maxLength, minValue, maxValue } from "@vuelidate/validators";
+import {
+    required,
+    email,
+    minLength,
+    maxLength,
+    minValue,
+    maxValue,
+} from "@vuelidate/validators";
 
 import { useStationsStore } from "@/admin/services/stores/stationsStore.js";
 import { useEnumsStore } from "@/admin/services/stores/enumsStore.js";
@@ -282,8 +319,12 @@ export default {
     },
     mounted() {
         this.enumsStore.getCities();
-        this.enumsStore.getDistricts(this.stationsStore.station.location.city_id);
-        this.enumsStore.getSubdistricts(this.stationsStore.station.location.district_id);
+        this.enumsStore.getDistricts(
+            this.stationsStore.station.location.city_id
+        );
+        this.enumsStore.getSubdistricts(
+            this.stationsStore.station.location.district_id
+        );
     },
     data() {
         var station = Object.assign({}, this.stationsStore.station);
@@ -343,7 +384,10 @@ export default {
                 .update(this.stationModel)
                 .then((response) => console.log(response))
                 .then((response) =>
-                    this.router.push({ name: "Admin.Stations" })
+                    this.router.push({
+                        name: "Admin.Station.Show",
+                        params: { id: this.stationModel.id },
+                    })
                 )
                 .catch((error) => console.log(error));
             this.loading = false;

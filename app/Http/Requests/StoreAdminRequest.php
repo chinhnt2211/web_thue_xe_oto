@@ -73,16 +73,16 @@ class StoreAdminRequest extends FormRequest
                 Rule::unique('admins', 'cic_number'),
             ],
             'cic_front' => [
-                // 'bail',
-                // 'required',
-                // 'file',
-                // 'image',
+                'bail',
+                'required',
+                'file',
+                'image',
             ],
             'cic_back' => [
-                // 'bail',
-                // 'required',
-                // 'file',
-                // 'image',
+                'bail',
+                'required',
+                'file',
+                'image',
             ],
             'dob' => [
                 'bail',
@@ -118,25 +118,25 @@ class StoreAdminRequest extends FormRequest
                 'numeric',
                 Rule::in(Station::getIds()),
             ],
-            'location.city_id' => [
-                // 'bail',
-                // 'required',
-                // Rule::in(City::getIds()),
+            'city_id' => [
+                'bail',
+                'required',
+                Rule::in(City::getIds()),
             ],
-            'location.district_id' => [
-                // 'bail',
-                // 'required',
-                // Rule::in(District::getIds()),
+            'district_id' => [
+                'bail',
+                'required',
+                Rule::in(District::getIds()),
             ],
-            'location.subdistrict_id' => [
-                // 'bail',
-                // 'required',
-                // Rule::in(Subdistrict::getIds()),
+            'subdistrict_id' => [
+                'bail',
+                'required',
+                Rule::in(Subdistrict::getIds()),
             ],
-            'location.address' => [
-                // 'bail',
-                // 'required',
-                // 'max:255',
+            'address' => [
+                'bail',
+                'required',
+                'max:255',
             ],
         ];
     }

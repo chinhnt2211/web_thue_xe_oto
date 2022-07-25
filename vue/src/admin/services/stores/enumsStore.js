@@ -14,7 +14,7 @@ export const useEnumsStore = defineStore("enumsStore", {
         async getCities() {
             const response = await baseAxios.get("/enum/cities");
             this.cities = response.data;
-            // console.log(response);
+            console.log(response);
         },
         async getDistricts(cityId = null) {
             // console.log(cityId);

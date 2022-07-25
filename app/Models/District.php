@@ -13,6 +13,7 @@ class District extends Model
     public $timestamps = false;
 
     protected $visible = [
+        "id",
         "name",
         "type",
         "slug",

@@ -21,9 +21,14 @@ class Station extends Model
         'id',
         'name',
         // 'location_id',
-        'location',
+        // 'location',
+        'address',
         'phone',
         'capacity',
+    ];
+
+    protected $appends = [
+        'address',
     ];
 
     protected $with = [
@@ -32,6 +37,17 @@ class Station extends Model
         'location.district',
         'location.subdistrict'
     ];
+
+    protected function address(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) =>
+            $this->location?->city?->name . ', ' .
+                $this->location?->district?->name . ', ' .
+                $this->location?->subdistrict?->name . ', ' .
+                $this->location?->address,
+        );
+    }
 
     public function location()
     {
@@ -43,19 +59,23 @@ class Station extends Model
         return self::get()->pluck('id');
     }
 
+    public static function findWithAll()
+    {
+        return self::query()
+            ->find(request()->get('id'))
+            ->makeVisible([
+                'location',
+                'location.city',
+                'location.district',
+                'location.subdistrict'
+            ]);
+    }
+
     public static function latestPaginate()
     {
         $data = self::query()
             ->orderBy('created_at', 'desc')
             ->paginate();
-
-        foreach($data as $each) {
-            $each->address = 
-                ($each->location->city ? $each->location->city->name : '') . ', ' .
-                ($each->location->district ? $each->location->district->name : '') . ', ' .
-                ($each->location->subdistrict ? $each->location->subdistrict->name : '') . ', ' .
-                $each->location->address;
-        }
 
         return $data;
     }
