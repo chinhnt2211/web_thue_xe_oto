@@ -119,5 +119,11 @@ Route::prefix('/user')
 
 
     Route::get('/test', function () {
-        
+        // $image = Image::first()->makeVisible([
+        //     'created_at',
+        //     'updated_at',
+        // ]);
+        // return $image;
+
+        return Admin::first()->gender;
     });

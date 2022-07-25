@@ -26,12 +26,10 @@ class StationController extends Controller
     public function get(Request $request)
     {
         if ($request->get('id')) {
-            $data = $this->model::findWithAll();
+            return response($this->model::find($request->get('id')));
         } else {
-            $data = $this->model::latestWithAll();
+            return response($this->model::latestPaginate());
         }
-
-        return response($data);
     }
 
     /**

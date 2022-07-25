@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Enums\AdminRoleEnum;
+use App\Enums\AdminStatusEnum;
 use App\Enums\GenderEnum;
-use Attribute;
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,7 +16,7 @@ class Admin extends Authenticatable
 {
     use HasFactory, HasApiTokens;
 
-    public $fillable = [
+    protected $fillable = [
         'first_name',
         'last_name',
         'email',
@@ -33,17 +34,54 @@ class Admin extends Authenticatable
         'station_id',
     ];
 
-    protected function genderName(): Attribute
+    protected $visible = [
+        'id',
+        'first_name',
+        'last_name',
+        'email',
+        // 'location_id',
+        'location',
+        'phone',
+        // 'password',
+        // 'cic_number',
+        // 'cic_front',
+        // 'cic_back',
+        'dob',
+        'gender',
+        'avatar',
+        'role',
+        'status',
+        // 'station_id',
+        'station',
+    ];
+
+    protected $with = [
+        'location',
+        'avatar',
+        'station',
+    ];
+
+    protected function gender(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => GenderEnum::getKey($attributes->gender),
+            get: fn ($value) => GenderEnum::getKey($value),
+            set: fn ($value) => GenderEnum::getValue($value),
         );
     }
 
-    protected function roleName(): Attribute
+    protected function role(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => AdminRoleEnum::getKey($attributes->role),
+            get: fn ($value) => AdminRoleEnum::getKey($value),
+            set: fn ($value) => AdminRoleEnum::getValue($value),
+        );
+    }
+
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => AdminStatusEnum::getKey($value),
+            set: fn ($value) => AdminStatusEnum::getValue($value),
         );
     }
 
@@ -75,33 +113,22 @@ class Admin extends Authenticatable
     public static function findWithAll($id = null)
     {
         $data = self::with([
-            'avatar',
             'cic_front',
             'cic_back',
             'location',
             'location.city',
             'location.district',
             'location.subdistrict',
-            'station',
         ])
             ->find(request()->get('id'));
 
         return $data;
     }
 
-    public static function latestWithLess()
+    public static function latestPaginate()
     {
         $data = self::orderBy('created_at', 'desc')
-            ->with([
-                'avatar',
-                'station',
-            ])
-            ->append([
-                'genderName',
-                'roleName',
-            ])
-            ->paginate();;
-
+            ->paginate();
 
         return $data;
     }

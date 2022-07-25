@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,22 @@ class Station extends Model
         'capacity',
     ];
 
+    protected $visible = [
+        'id',
+        'name',
+        // 'location_id',
+        'location',
+        'phone',
+        'capacity',
+    ];
+
+    protected $with = [
+        'location',
+        'location.city',
+        'location.district',
+        'location.subdistrict'
+    ];
+
     public function location()
     {
         return $this->belongsTo(Location::class);
@@ -26,27 +43,9 @@ class Station extends Model
         return self::get()->pluck('id');
     }
 
-    public static function findWithAll($id = null)
+    public static function latestPaginate()
     {
-        $data = self::with([
-            'location',
-            'location.city',
-            'location.district',
-            'location.subdistrict'
-        ])
-            ->find(request()->get('id'));
-
-        return $data;
-    }
-
-    public static function latestWithAll()
-    {
-        $data = self::with([
-            'location',
-            'location.city',
-            'location.district',
-            'location.subdistrict'
-        ])
+        $data = self::query()
             ->orderBy('created_at', 'desc')
             ->paginate();
 

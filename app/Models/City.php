@@ -11,6 +11,13 @@ class City extends Model
 
     public $timestamps = false;
 
+    protected $visible = [
+        "name",
+        "slug",
+        "type",
+        "name_with_type",
+    ];
+
     public static function getIds()
     {
         return self::get()->pluck('id');

@@ -28,11 +28,9 @@ class AdminController extends Controller
     public function get(Request $request)
     {
         if ($request->get('id')) {
-            $data = Admin::findWithAll();
-            return response($data);
+            return response(Admin::findWithAll());
         } else {
-            $data = Admin::latestWithLess();
-            return response($data);
+            return response(Admin::latestPaginate());
         }
     }
 

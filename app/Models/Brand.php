@@ -13,6 +13,10 @@ class Brand extends Model
         'name',
     ];
 
+    public $visible = [
+        'name',
+    ];
+
     public static function getIds()
     {
         return self::get()->pluck('id');

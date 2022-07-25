@@ -26,13 +26,10 @@ class VehicleController extends Controller
     public function get(Request $request)
     {
         if($request->get('id')) {
-            $data = $this->model::findWithAll($request->get('id'));
+            return response($this->model::find($request->get('id')));
         } else {
-            $data = $this->model::latestWithAll()
-            ->paginate();
+            return response($this->model::latestPaginate());
         }
-
-        return response($data);
     }
 
     /**

@@ -15,6 +15,23 @@ class Location extends Model
         'subdistrict_id',
         'address',
     ];
+
+    public $visible = [
+        // 'city_id',
+        'city',
+        // 'district_id',
+        'district',
+        // 'subdistrict_id',
+        'subdistrict',
+        'address',
+    ];
+
+    protected $with = [
+        'city',
+        'district',
+        'subdistrict',
+    ];
+
     public function city()
     {
         return $this->belongsTo(City::class);
