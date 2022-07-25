@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('seating_capacities', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('seating_capacity');
+            $table->tinyInteger('seating_capacity')->unique();
             $table->timestamps();
         });
     }

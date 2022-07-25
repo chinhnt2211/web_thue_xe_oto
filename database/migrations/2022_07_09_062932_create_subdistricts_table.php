@@ -17,7 +17,7 @@ class CreateSubdistrictsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('name_with_type');
             $table->string('path');
             $table->string('path_with_type');
