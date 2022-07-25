@@ -14,6 +14,7 @@ class Brand extends Model
     ];
 
     public $visible = [
+        'id',
         'name',
     ];
 

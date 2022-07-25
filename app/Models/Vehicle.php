@@ -25,6 +25,7 @@ class Vehicle extends Model
     ];
 
     protected $visible = [
+        'id',
         'name',
         'status',
         'description',

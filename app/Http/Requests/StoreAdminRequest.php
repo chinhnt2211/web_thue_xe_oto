@@ -96,9 +96,9 @@ class StoreAdminRequest extends FormRequest
                 Rule::in(GenderEnum::getValues()),
             ],
             'avatar' => [
-                // 'bail',
-                // 'file',
-                // 'image',
+                'bail',
+                'file',
+                'image',
             ],
             'role' => [
                 'bail',

@@ -11,7 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class AdminStatusEnum extends Enum
 {
-    const WORKING =   0;
+    const WORKING  =   0;
     const ON_LEAVE =   1;
-    const QUIT_JOB = 2;
+    const QUIT_JOB =   2;
 }

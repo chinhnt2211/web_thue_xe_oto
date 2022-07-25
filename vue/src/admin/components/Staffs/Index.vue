@@ -29,11 +29,11 @@
                 >
                     <thead>
                         <tr>
-                            <th
+                            <!-- <th
                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
                             >
                                 ID
-                            </th>
+                            </th> -->
                             <th
                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
                             >
@@ -82,11 +82,11 @@
                             "
                             class="hover:bg-emerald-50 hover:cursor-pointer"
                         >
-                            <td
+                            <!-- <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                             >
                                 {{ staff.id }}
-                            </td>
+                            </td> -->
                             <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                             >

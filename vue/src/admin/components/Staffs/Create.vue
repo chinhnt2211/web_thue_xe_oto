@@ -663,6 +663,8 @@ export default {
                 },
                 cic_number: {
                     required,
+                    minLength: minLength(9),
+                    maxLength: maxLength(12),
                 },
             },
         };
