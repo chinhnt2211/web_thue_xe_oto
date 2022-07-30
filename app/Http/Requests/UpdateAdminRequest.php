@@ -48,7 +48,7 @@ class UpdateAdminRequest extends FormRequest
                 'bail',
                 'required',
                 'email',
-                Rule::unique('admins', 'email'),
+                Rule::unique('admins', 'email')->ignore(auth()->user()->id),
             ],
             'phone' => [
                 'bail',
@@ -56,7 +56,7 @@ class UpdateAdminRequest extends FormRequest
                 'string',
                 'min:9',
                 'max:15',
-                Rule::unique('admins', 'phone'),
+                Rule::unique('admins', 'phone')->ignore(auth()->user()->id),
             ],
             'password' => [
                 'bail',
@@ -70,17 +70,17 @@ class UpdateAdminRequest extends FormRequest
                 'string',
                 'min:9',
                 'max:12',
-                Rule::unique('admins', 'cic_number'),
+                Rule::unique('admins', 'cic_number')->ignore(auth()->user()->id),
             ],
             'cic_front' => [
                 'bail',
-                'required',
+                // 'required',
                 'file',
                 'image',
             ],
             'cic_back' => [
                 'bail',
-                'required',
+                // 'required',
                 'file',
                 'image',
             ],
@@ -96,9 +96,10 @@ class UpdateAdminRequest extends FormRequest
                 Rule::in(GenderEnum::getValues()),
             ],
             'avatar' => [
-                // 'bail',
-                // 'file',
-                // 'image',
+                'bail',
+                // 'required',
+                'file',
+                'image',
             ],
             'role' => [
                 'bail',

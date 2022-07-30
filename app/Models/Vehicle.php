@@ -47,14 +47,6 @@ class Vehicle extends Model
         'seatingCapacity',
     ];
 
-    protected function status(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => VehicleStatusEnum::getKey($value),
-            set: fn ($value) => VehicleStatusEnum::getValue($value),
-        );
-    }
-
     public function station()
     {
         return $this->belongsTo(Station::class);
@@ -68,6 +60,12 @@ class Vehicle extends Model
     public function seatingCapacity()
     {
         return $this->belongsTo(SeatingCapacity::class, 'seating_capacity_id');
+    }
+
+    public static function findDetail()
+    {
+        return self::query()
+            ->find(request()->get('id'));
     }
 
     public static function latestPaginate($id = null)

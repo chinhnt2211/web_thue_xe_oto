@@ -18,26 +18,22 @@ class VehicleController extends Controller
     function __construct() {
         $this->model = Vehicle::class;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function get(Request $request)
+
+    public function index()
     {
-        if($request->get('id')) {
-            return response($this->model::find($request->get('id')));
-        } else {
-            return response($this->model::latestPaginate());
-        }
+        return response($this->model::findDetail());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreStationRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function page()
+    {
+        return response($this->model::latestPaginate());
+    }
+
+    public function all()
+    {
+        return response($this->model::get());
+    }
+
     public function store(StoreVehicleRequest $request)
     {
         DB::beginTransaction();
@@ -65,13 +61,6 @@ class VehicleController extends Controller
         return response("success");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateStationRequest  $request
-     * @param  \App\Models\Station  $station
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
     {
         DB::beginTransaction();
@@ -99,12 +88,6 @@ class VehicleController extends Controller
         return response("success");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Station  $station
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Vehicle $vehicle)
     {
         try {

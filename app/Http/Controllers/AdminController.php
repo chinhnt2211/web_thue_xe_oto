@@ -25,39 +25,41 @@ class AdminController extends Controller
         $this->model = Admin::class;
     }
 
-    public function get(Request $request)
+    public function index()
     {
-        if ($request->get('id')) {
-            return response(Admin::findWithAll());
-        } else {
-            return response(Admin::latestPaginate());
-        }
+        return response($this->model::findDetail());
+    }
+
+    public function page()
+    {
+        return response($this->model::latestPaginate());
+    }
+
+    public function all()
+    {
+        return response($this->model::get());
     }
 
     public function store(StoreAdminRequest $request)
     {   
-        // return ['gender' => 1];
-        return $request->only(['gender']);
-        $admin = new Admin();
-        $admin->fill($request->only('gender'));
-        // $admin->fill(['gender' => 1]);
-        return $admin;
         // return response($request->file('avatar'), 444);
         // return response($request->all(), 444);
         // return response($request->validated(), 444);
         DB::beginTransaction();
         try {
+            $location_id = Location::create($request->validated(), 0);
+
             $admin = new Admin();
             $admin->fill($request->except(['avatar', 'cic_front', 'cic_back']));
-            return response('here', 444);
             $admin->password = Hash::make($admin->password);
+            $admin->location_id = $location_id;
             $admin->save();
+            
+            // return response('here', 444);
 
-            $admin->location_id = Location::create($request->validated(), 0);
-
-            $admin->avatar = Image::create($request->file('avatar'), 'avatar', $admin);
-            $admin->cic_front = Image::create($request->file('cic_front'), 'cic_front', $admin);
-            $admin->cic_back = Image::create($request->file('cic_back'), 'cic_back', $admin);
+            $admin->avatar = Image::create($request->file('avatar'), 'avatar');
+            $admin->cic_front = Image::create($request->file('cic_front'), 'cic_front');
+            $admin->cic_back = Image::create($request->file('cic_back'), 'cic_back');
 
             $admin->save();
 

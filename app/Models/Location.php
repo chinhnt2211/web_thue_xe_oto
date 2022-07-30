@@ -18,11 +18,11 @@ class Location extends Model
 
     public $visible = [
         'id',
-        // 'city_id',
+        'city_id',
         'city',
-        // 'district_id',
+        'district_id',
         'district',
-        // 'subdistrict_id',
+        'subdistrict_id',
         'subdistrict',
         'address',
     ];

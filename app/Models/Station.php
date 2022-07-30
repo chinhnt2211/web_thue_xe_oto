@@ -59,7 +59,7 @@ class Station extends Model
         return self::get()->pluck('id');
     }
 
-    public static function findWithAll()
+    public static function findDetail()
     {
         return self::query()
             ->find(request()->get('id'))

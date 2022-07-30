@@ -84,7 +84,7 @@ class Admin extends Authenticatable
         return $this->belongsTo(Station::class);
     }
 
-    public static function findWithAll($id = null)
+    public static function findDetail($id = null)
     {
         $data = self::with([
             'cic_front',

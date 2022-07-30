@@ -22,4 +22,9 @@ class Brand extends Model
     {
         return self::get()->pluck('id');
     }
+
+    public static function getNames()
+    {
+        return self::get()->pluck('name');
+    }
 }

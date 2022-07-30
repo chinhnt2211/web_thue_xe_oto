@@ -25,19 +25,11 @@ class Image extends Model
         'link',
     ];
 
-    protected function type(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => ImageTypeEnum::getKey($value),
-            set: fn ($value) => ImageTypeEnum::getValue($value),
-        );
-    }
-
     public static function create($file, $type)
     {
         $model = new self;
         $model->type = ImageTypeEnum::getValue(Str::upper($type));
-        $model->link = $file->storeAs('images/');
+        $model->link = $file->store('images/');
         $model->save();
         return $model->id;
     }

@@ -32,11 +32,13 @@ class AuthController extends Controller
         ]);
         $plainTextToken = $token->plainTextToken;
 
-        return response([
-            'token_type' => 'Bearer',
-            'token' => $plainTextToken,
-            'admin' => Auth::guard('api_admin')->user(),
-            'test' => $token
-        ]);
+        return response($plainTextToken);
+
+        // return response([
+        //     'token_type' => 'Bearer',
+        //     'token' => $plainTextToken,
+        //     'admin' => Auth::guard('api_admin')->user(),
+        //     'test' => $token
+        // ]);
     }
 }

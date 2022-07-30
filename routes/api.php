@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\StationController;
 use App\Http\Controllers\Api\User\AuthUserController;
 use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\EnumController;
+use App\Http\Controllers\OptionController;
 use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\City;
@@ -33,14 +34,20 @@ use Illuminate\Support\Facades\Storage;
 
 // Enum
 
-Route::prefix('/enum')
-->controller(EnumController::class)
-->group(function () {
-    // Route::get('/administrative', 'administrative');
-    Route::get('/cities', 'cities');
-    Route::get('/districts', 'districts');
-    Route::get('/subdistricts', 'subdistricts');
-});
+Route::prefix('/options')
+    ->controller(OptionController::class)
+    ->group(function () {
+        Route::get('/admin-statuses', 'adminStatuses');
+        Route::get('/admin-roles', 'adminRoles');
+        Route::get('/genders', 'genders');
+        Route::get('/stations', 'stations');
+        Route::get('/brands', 'brands');
+        Route::get('/seating-capacities', 'seatingCapacities');
+        Route::get('/vehicle-statuses', 'vehicleStatuses');
+        Route::get('/cities', 'cities');
+        Route::get('/districts', 'districts');
+        Route::get('/subdistricts', 'subdistricts');
+    });
 
 // Admin
 
@@ -62,12 +69,14 @@ Route::prefix('/admins')
     ->controller(AdminController::class)
     ->middleware(['auth:sanctum', 'ability:admin,superAdmin'])
     ->group(function () {
-        Route::get('/get', 'get');
+        Route::get('/', 'index');
+        Route::get('/page', 'page');
+        Route::get('/all', 'all');
 
         Route::middleware('abilities:superAdmin')
             ->group(function () {
                 Route::post('/store', 'store');
-                Route::put('/update', 'update');
+                Route::put('/update/{admin}', 'update');
                 Route::delete('/destroy/{admin}', 'destroy');
             });
     });
@@ -75,11 +84,12 @@ Route::prefix('/admins')
 Route::prefix('/stations')
     ->controller(StationController::class)
     ->group(function () {
-        Route::get('/get', 'get');
+        Route::get('/', 'index');
+        Route::get('/page', 'page');
+        Route::get('/all', 'all');
 
         Route::middleware(['auth:sanctum', 'abilities:superAdmin'])
             ->group(function () {
-                Route::get('/getall', 'getAll');
                 Route::post('/store', 'store');
                 Route::put('/update/{station}', 'update');
                 Route::delete('/destroy/{station}', 'destroy');
@@ -89,11 +99,12 @@ Route::prefix('/stations')
 Route::prefix('/vehicles')
     ->controller(VehicleController::class)
     ->group(function () {
-        Route::get('/get', 'get');
+        Route::get('/', 'index');
+        Route::get('/page', 'page');
+        Route::get('/all', 'all');
 
         Route::middleware(['auth:sanctum', 'abilities:superAdmin'])
             ->group(function () {
-                Route::get('/getall', 'getAll');
                 Route::post('/store', 'store');
                 Route::put('/update', 'update');
                 Route::delete('/destroy/{vehicle}', 'destroy');
@@ -107,6 +118,7 @@ Route::prefix('/user')
         Route::post('/login',  'login');
         Route::post('/register', 'register');
     });
+
 Route::prefix('/user')
     ->controller(AuthUserController::class)
     ->middleware(['auth:sanctum'])
@@ -118,12 +130,12 @@ Route::prefix('/user')
     });
 
 
-    Route::get('/test', function () {
-        // $image = Image::first()->makeVisible([
-        //     'created_at',
-        //     'updated_at',
-        // ]);
-        // return $image;
+Route::get('/test', function () {
+    // $image = Image::first()->makeVisible([
+    //     'created_at',
+    //     'updated_at',
+    // ]);
+    // return $image;
 
-        return Admin::first()->gender;
-    });
+    return Admin::first()->gender;
+});

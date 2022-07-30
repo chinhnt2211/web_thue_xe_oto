@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('type');
-            $table->string('city_id',6);
-            $table->string('district_id',6);
-            $table->string('subdistrict_id',6);
+            $table->bigInteger('city_id');
+            $table->bigInteger('district_id');
+            $table->bigInteger('subdistrict_id');
             $table->string('address')->nullable();
             $table->timestamps();
         });
