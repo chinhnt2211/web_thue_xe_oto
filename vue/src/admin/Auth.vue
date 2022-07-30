@@ -195,7 +195,7 @@ export default {
                     this.toast.error(
                         error.response?.data?.message ||
                             error.response?.data ||
-                            "Something wrong happend"
+                            "Something wrong happened"
                     );
                 });
 

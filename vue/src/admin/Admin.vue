@@ -71,6 +71,7 @@ export default {
 </script>
 
 <style>
-@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "@/admin/assets/styles/index.css";
 @import "@/admin/assets/styles/tailwind.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 </style>

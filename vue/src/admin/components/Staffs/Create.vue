@@ -115,13 +115,12 @@
                                 >
                                     Gender
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.genders"
+                                    :reduce="gender => gender.code"
                                     v-model="staffModel.gender"
-                                >
-                                    <option value="1">Male</option>
-                                    <option value="0">Female</option>
-                                </select>
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="v$.staffModel.gender.$error"
                                     class="text-sm text-red-500"
@@ -144,15 +143,16 @@
                                     type="file"
                                     ref="avatar"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    @change="imageFileChanged('avatar')"
                                 />
-                                <!-- <div
-                                    v-if="v$.staffModel.gender.$error"
+                                <div
+                                    v-if="v$.staffModel.avatar.$error"
                                     class="text-sm text-red-500"
                                 >
                                     {{
-                                        v$.staffModel.gender.$errors[0].$message
+                                        v$.staffModel.avatar.$errors[0].$message
                                     }}
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -172,20 +172,18 @@
                                 >
                                     City
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.cities"
+                                    :reduce="city => city.id"
+                                    label="name"
                                     v-model="staffModel.location.city_id"
-                                    @change="cityChangeHandler"
-                                >
-                                    <option
-                                        v-for="city in enumsStore.cities"
-                                        :value="city.id"
-                                    >
-                                        {{ city.name }}
-                                    </option>
-                                </select>
+                                    @option:selected="cityInputHandler"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
-                                    v-if="v$.staffModel.location.city_id.$error"
+                                    v-if="
+                                        v$.staffModel.location.city_id.$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
                                     {{
@@ -203,18 +201,14 @@
                                 >
                                     District
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.districts"
+                                    :reduce="district => district.id"
+                                    label="name"
                                     v-model="staffModel.location.district_id"
-                                    @change="districtChangeHandler"
-                                >
-                                    <option
-                                        v-for="district in enumsStore.districts"
-                                        :value="district.id"
-                                    >
-                                        {{ district.name }}
-                                    </option>
-                                </select>
+                                    @option:selected="districtInputHandler"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="
                                         v$.staffModel.location.district_id
@@ -237,18 +231,14 @@
                                 >
                                     Subdistrict
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.subdistricts"
+                                    :reduce="subdistrict => subdistrict.id"
+                                    label="name"
                                     v-model="staffModel.location.subdistrict_id"
-                                    @change="subdistrictChangeHandler"
-                                >
-                                    <option
-                                        v-for="subdistrict in enumsStore.subdistricts"
-                                        :value="subdistrict.id"
-                                    >
-                                        {{ subdistrict.name }}
-                                    </option>
-                                </select>
+                                    @option:selected="subdistrictInputHandler"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="
                                         v$.staffModel.location.subdistrict_id
@@ -277,7 +267,9 @@
                                     v-model="staffModel.location.address"
                                 />
                                 <div
-                                    v-if="v$.staffModel.location.address.$error"
+                                    v-if="
+                                        v$.staffModel.location.address.$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
                                     {{
@@ -359,12 +351,12 @@
                                 >
                                     Role
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.adminRoles"
+                                    :reduce="role => role.code"
                                     v-model="staffModel.role"
-                                >
-                                    <option value="1">ADMIN</option>
-                                </select>
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="v$.staffModel.role.$error"
                                     class="text-sm text-red-500"
@@ -381,12 +373,12 @@
                                 >
                                     Status
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.adminStatuses"
+                                    :reduce="status => status.code"
                                     v-model="staffModel.status"
-                                >
-                                    <option value="1">WORKING</option>
-                                </select>
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="v$.staffModel.status.$error"
                                     class="text-sm text-red-500"
@@ -405,12 +397,13 @@
                                 >
                                     Station
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="stationsStore.allStations"
+                                    :reduce="station => station.id" 
+                                    label="name"
                                     v-model="staffModel.station_id"
-                                >
-                                    <option value="1">tram 1</option>
-                                </select>
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="v$.staffModel.station_id.$error"
                                     class="text-sm text-red-500"
@@ -491,15 +484,16 @@
                                     type="file"
                                     ref="cic_front"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    @change="imageFileChanged('cic_front')"
                                 />
-                                <!-- <div
-                                    v-if="v$.staffModel.gender.$error"
+                                <div
+                                    v-if="v$.staffModel.cic_front.$error"
                                     class="text-sm text-red-500"
                                 >
                                     {{
-                                        v$.staffModel.gender.$errors[0].$message
+                                        v$.staffModel.cic_front.$errors[0].$message
                                     }}
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -514,15 +508,16 @@
                                     type="file"
                                     ref="cic_back"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    @change="imageFileChanged('cic_back')"
                                 />
-                                <!-- <div
-                                    v-if="v$.staffModel.gender.$error"
+                                <div
+                                    v-if="v$.staffModel.cic_back.$error"
                                     class="text-sm text-red-500"
                                 >
                                     {{
-                                        v$.staffModel.gender.$errors[0].$message
+                                        v$.staffModel.cic_back.$errors[0].$message
                                     }}
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -552,7 +547,7 @@
             </div>
         </div>
     </div>
-    <!-- <button @click="test">test</button> -->
+    <button @click="test">test</button>
 </template>
 
 <script>
@@ -568,8 +563,10 @@ import {
     maxValue,
 } from "@vuelidate/validators";
 
-import { useStaffsStore } from "@/admin/services/stores/staffsStore.js";
-import { useEnumsStore } from "@/admin/services/stores/enumsStore.js";
+import { useStaffsStore } from "@/admin/services/stores/staffsStore.js";    
+import { useStationsStore } from "@/admin/services/stores/stationsStore.js";    
+import { useOptionsStore } from "@/admin/services/stores/optionsStore.js";
+import { toTypeString } from "@vue/shared";
 
 export default {
     setup() {
@@ -577,15 +574,22 @@ export default {
             router: useRouter(),
             route: useRoute(),
             staffsStore: useStaffsStore(),
-            enumsStore: useEnumsStore(),
+            stationsStore: useStationsStore(),
+            optionsStore: useOptionsStore(),
             toast: useToast(),
             v$: useVuelidate(),
         };
     },
     mounted() {
-        this.enumsStore.getCities();
-        // enumsStore.getDistricts();
-        // enumsStore.getSubdistricts();
+        this.stationsStore.fetchAllStations();
+        this.optionsStore.getEnums([
+            'genders',
+            'admin-roles',
+            'admin-statuses',
+            ]);
+        this.optionsStore.getCities();
+        // optionsStore.getDistricts();
+        // optionsStore.getSubdistricts();
     },
     data() {
         return {
@@ -659,12 +663,21 @@ export default {
                     required,
                 },
                 password: {
-                    required,
+                    // required,
                 },
                 cic_number: {
                     required,
                     minLength: minLength(9),
                     maxLength: maxLength(12),
+                },
+                avatar: {
+                    required,
+                },
+                cic_front: {
+                    required,
+                },
+                cic_back: {
+                    required,
                 },
             },
         };
@@ -680,11 +693,7 @@ export default {
                 return;
             }
 
-            console.log('store')
-            
-            this.staffModel.avatar = this.$refs.avatar.files[0];
-            this.staffModel.cic_front = this.$refs.cic_front.files[0];
-            this.staffModel.cic_back = this.$refs.cic_back.files[0];
+            // console.log("store");
 
             await this.staffsStore
                 .store(this.staffModel)
@@ -696,24 +705,28 @@ export default {
                 });
             this.loading = false;
         },
-        cityChangeHandler() {
+        cityInputHandler() {
             this.staffModel.location.district_id = null;
             this.staffModel.location.subdistrict_id = null;
-            this.enumsStore.getDistricts(this.staffModel.location.city_id);
+            this.optionsStore.getDistricts(this.staffModel.location.city_id);
         },
-        districtChangeHandler() {
+        districtInputHandler() {
             this.staffModel.location.subdistrict_id = null;
-            this.enumsStore.getSubdistricts(
+            this.optionsStore.getSubdistricts(
                 this.staffModel.location.district_id
             );
         },
-        subdistrictChangeHandler() {},
-        // test() {
-        //     console.log(this.$refs);
-        //     console.log(this.$refs.avatar.files[0]);
-        //     console.log(this.$refs.cic_front.files[0]);
-        //     console.log(this.$refs.cic_back.files[0]);
-        // },
+        subdistrictInputHandler() {},
+        imageFileChanged(type = null) {
+            if(type == null) {
+                return;
+            }
+            this.staffModel[type] = this.$refs[type].files[0];
+            console.log()
+        },
+        test() {
+            console.log(this.staffModel.station_id);
+        }
     },
 };
 </script>

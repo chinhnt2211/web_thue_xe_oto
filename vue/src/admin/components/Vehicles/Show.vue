@@ -193,11 +193,14 @@ export default {
         stationsStore.fetchStation(to.params.id).then(() => next());
     },
     setup() {
+        const router = useRouter();
+        const route = useRoute();
+        const stationsStore = useStationsStore();
 
         return {
-            router: useRouter(),
-            route: useRoute(),
-            stationsStore: useStationsStore(),
+            router,
+            route,
+            stationsStore,
             toast: useToast(),
         };
     },

@@ -1,5 +1,5 @@
 <template>
-    <div id="stations">
+    <div id="vehicles">
         <div
             class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white"
         >
@@ -16,7 +16,7 @@
                         class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                         type="button"
                         v-on:click="
-                            this.$router.push({ name: 'Admin.Stations.Create' })
+                            this.$router.push({ name: 'Admin.Vehicles.Create' })
                         "
                     >
                         Create
@@ -42,27 +42,42 @@
                             <th
                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
                             >
-                                Address
+                                License
                             </th>
                             <th
                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
                             >
-                                Phone
+                                Brand
                             </th>
                             <th
                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
                             >
-                                Capacity
+                                Station
+                            </th>
+                            <th
+                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
+                            >
+                                Status
+                            </th>
+                            <th
+                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
+                            >
+                                Price
+                            </th>
+                            <th
+                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-emerald-600 text-white border-emerald-100"
+                            >
+                                Rent Price
                             </th>
                         </tr>
                     </thead>
                     <tbody v-if="!loading">
                         <tr
-                            v-for="station in stationsStore.stations"
+                            v-for="vehicle in vehiclesStore.vehicles"
                             @click="
                                 this.$router.push({
-                                    name: 'Admin.Stations.Show',
-                                    params: { id: station.id },
+                                    name: 'Admin.Vehicles.Show',
+                                    params: { id: vehicle.id },
                                 })
                             "
                             class="hover:bg-emerald-50 hover:cursor-pointer"
@@ -70,27 +85,42 @@
                             <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                             >
-                                {{ station.id }}
+                                {{ vehicle.id }}
                             </td>
                             <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                             >
-                                {{ station.name }}
+                                {{ vehicle.name }}
                             </td>
                             <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                             >
-                                {{ station.address }}
+                                {{ vehicle.license_number }}
                             </td>
                             <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                             >
-                                {{ station.phone }}
+                                {{ vehicle.brand.name }}
                             </td>
                             <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                             >
-                                {{ station.capacity }}
+                                {{ vehicle.station.name }}
+                            </td>
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                            >
+                                {{ vehicle.status }}
+                            </td>
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                            >
+                                {{ vehicle.price }}
+                            </td>
+                            <td
+                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                            >
+                                {{ vehicle.rent_price }}
                             </td>
                         </tr>
                     </tbody>
@@ -127,11 +157,11 @@
                             <a
                                 class="block py-2 px-3 ml-0 leading-tight text-emerald-500 bg-white rounded-l-lg border border-emerald-300"
                                 :class="
-                                    stationsStore.prevPage
+                                    vehiclesStore.prevPage
                                         ? 'hover:bg-emerald-100 hover:text-emerald-700'
                                         : ''
                                 "
-                                @click="stationsStore.toPrevPage"
+                                @click="vehiclesStore.toPrevPage"
                             >
                                 <span class="sr-only">Previous</span>
                                 <svg
@@ -148,12 +178,12 @@
                                 </svg>
                             </a>
                         </li>
-                        <li v-for="link in stationsStore.links">
+                        <li v-for="link in vehiclesStore.links">
                             <a
                                 v-if="!link.label.includes('&')"
                                 class="py-2 px-3 leading-tight border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700"
                                 :class="
-                                    link.label == stationsStore.currentPage
+                                    link.label == vehiclesStore.currentPage
                                         ? 'bg-emerald-700 text-white'
                                         : 'bg-white text-emerald-500'
                                 "
@@ -165,11 +195,11 @@
                             <a
                                 class="block py-2 px-3 leading-tight text-emerald-500 bg-white rounded-r-lg border border-emerald-300"
                                 :class="
-                                    stationsStore.nextPage
+                                    vehiclesStore.nextPage
                                         ? 'hover:bg-emerald-100 hover:text-emerald-700'
                                         : ''
                                 "
-                                @click="stationsStore.toNextPage"
+                                @click="vehiclesStore.toNextPage"
                             >
                                 <span class="sr-only">Next</span>
                                 <svg
@@ -197,38 +227,32 @@
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 
-import { useStationsStore } from "@/admin/services/stores/stationsStore.js";
+import { useVehiclesStore } from "@/admin/services/stores/vehiclesStore.js";
 
 export default {
     setup() {
-        const router = useRouter();
-        const route = useRoute();
-        const stationsStore = useStationsStore();
-
-        stationsStore.fetchStations();
-
         return {
-            router,
-            route,
-            stationsStore,
+            router: useRouter(),
+            route: useRoute(),
+            vehiclesStore: useVehiclesStore(),
             toast: useToast(),
         };
     },
+    mounted() {
+        this.vehiclesStore.fetchVehicles();
+    },
     data() {
         return {
-            title: "Stations",
+            title: "Vehicles",
             loading: false,
         };
     },
     components: {},
-    mounted() {
-        // console.log(this.route.params)
-    },
     methods: {
         async changePageHandler(id) {
             this.loading = true;
             try {
-                await this.stationsStore.changePage(id);
+                await this.vehiclesStore.changePage(id);
             } catch (error) {
                 this.toast.error("Something wrong happened");
             }

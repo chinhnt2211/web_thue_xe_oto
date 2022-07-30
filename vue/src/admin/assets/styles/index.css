@@ -3,3 +3,25 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.v-select {
+    border: 0 !important;
+    /* padding: 0 !important; */
+}
+.vs__selected {
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.vs__dropdown-toggle {
+    border: 0 !important;
+    padding: 0 !important;
+}
+.vs__search {
+    height: 20px !important;
+    border: 0 !important;
+    /* outline: none !important; */
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}

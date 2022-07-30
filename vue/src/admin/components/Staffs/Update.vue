@@ -6,7 +6,7 @@
             <div class="rounded-t bg-white mb-0 px-6 py-6">
                 <div class="text-center flex justify-between">
                     <h6 v-once class="text-blueGray-700 text-xl font-bold">
-                        Station {{ station.name }} - ID {{ station.id }}
+                        Staff {{ staff.first_name }} - ID {{ staff.id }}
                     </h6>
                     <div>
                         <button
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="flex-auto px-4 lg:px-10 py-10 pt-0 mt-3">
-                <form id="form" @submit.prevent="updateStationHandler">
+                <form id="form" @submit.prevent="updateStaffHandler">
                     <div class="flex flex-wrap">
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
@@ -44,18 +44,21 @@
                                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password"
                                 >
-                                    Name
+                                    First Name
                                 </label>
                                 <input
                                     type="text"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    v-model="stationModel.name"
+                                    v-model="staffModel.first_name"
                                 />
                                 <div
-                                    v-if="v$.stationModel.name.$error"
+                                    v-if="v$.staffModel.first_name.$error"
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.name.$errors[0].$message }}
+                                    {{
+                                        v$.staffModel.first_name.$errors[0]
+                                            .$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -65,18 +68,90 @@
                                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password"
                                 >
-                                    Capacity
+                                    Last Name
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    v-model="stationModel.capacity"
+                                    v-model="staffModel.last_name"
                                 />
                                 <div
-                                    v-if="v$.stationModel.capacity.$error"
+                                    v-if="v$.staffModel.last_name.$error"
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.capacity.$errors[0].$message }}
+                                    {{
+                                        v$.staffModel.last_name.$errors[0]
+                                            .$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Birthday
+                                </label>
+                                <input
+                                    type="date"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    v-model="staffModel.dob"
+                                />
+                                <div
+                                    v-if="v$.staffModel.dob.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{ v$.staffModel.dob.$errors[0].$message }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Gender
+                                </label>
+                                <v-select
+                                    :options="optionsStore.genders"
+                                    :reduce="gender => gender.code"
+                                    v-model="staffModel.gender"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
+                                <div
+                                    v-if="v$.staffModel.gender.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.gender.$errors[0].$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Avatar
+                                </label>
+                                <input
+                                    type="file"
+                                    ref="avatar"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    @change="imageFileChanged('avatar')"
+                                />
+                                <div
+                                    v-if="v$.staffModel.avatar.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.avatar.$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -97,23 +172,24 @@
                                 >
                                     City
                                 </label>
-                                <select
+                                <v-select
+                                    :options="optionsStore.cities"
+                                    :reduce="city => city.id"
+                                    label="name"
+                                    v-model="staffModel.location.city_id"
+                                    @option:selected="cityInputHandler"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    v-model="stationModel.location.city_id"
-                                    @change="cityChangeHandler"
-                                >
-                                    <option
-                                        v-for="city in enumsStore.cities"
-                                        :value="city.id"
-                                    >
-                                        {{ city.name }}
-                                    </option>
-                                </select>
+                                ></v-select>
                                 <div
-                                    v-if="v$.stationModel.location.city_id.$error"
+                                    v-if="
+                                        v$.staffModel.location.city_id.$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.city_id.$errors[0].$message }}
+                                    {{
+                                        v$.staffModel.location.city_id
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -125,23 +201,25 @@
                                 >
                                     District
                                 </label>
-                                <select
+                                <v-select
+                                    :options="optionsStore.districts"
+                                    :reduce="district => district.id"
+                                    label="name"
+                                    v-model="staffModel.location.district_id"
+                                    @option:selected="districtInputHandler"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    v-model="stationModel.location.district_id"
-                                    @change="districtChangeHandler"
-                                >
-                                    <option
-                                        v-for="district in enumsStore.districts"
-                                        :value="district.id"
-                                    >
-                                        {{ district.name }}
-                                    </option>
-                                </select>
+                                ></v-select>
                                 <div
-                                    v-if="v$.stationModel.location.district_id.$error"
+                                    v-if="
+                                        v$.staffModel.location.district_id
+                                            .$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.district_id.$errors[0].$message }}
+                                    {{
+                                        v$.staffModel.location.district_id
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -153,25 +231,25 @@
                                 >
                                     Subdistrict
                                 </label>
-                                <select
+                                <v-select
+                                    :options="optionsStore.subdistricts"
+                                    :reduce="subdistrict => subdistrict.id"
+                                    label="name"
+                                    v-model="staffModel.location.subdistrict_id"
+                                    @option:selected="subdistrictInputHandler"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    v-model="
-                                        stationModel.location.subdistrict_id
-                                    "
-                                    @change="subdistrictChangeHandler"
-                                >
-                                    <option
-                                        v-for="subdistrict in enumsStore.subdistricts"
-                                        :value="subdistrict.id"
-                                    >
-                                        {{ subdistrict.name }}
-                                    </option>
-                                </select>
+                                ></v-select>
                                 <div
-                                    v-if="v$.stationModel.location.subdistrict_id.$error"
+                                    v-if="
+                                        v$.staffModel.location.subdistrict_id
+                                            .$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.subdistrict_id.$errors[0].$message }}
+                                    {{
+                                        v$.staffModel.location.subdistrict_id
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -186,13 +264,18 @@
                                 <input
                                     type="text"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    v-model="stationModel.location.address"
+                                    v-model="staffModel.location.address"
                                 />
                                 <div
-                                    v-if="v$.stationModel.location.address.$error"
+                                    v-if="
+                                        v$.staffModel.location.address.$error
+                                    "
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.location.address.$errors[0].$message }}
+                                    {{
+                                        v$.staffModel.location.address
+                                            .$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -211,23 +294,233 @@
                                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password"
                                 >
+                                    Email
+                                </label>
+                                <input
+                                    type="email"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    v-model="staffModel.email"
+                                />
+                                <div
+                                    v-if="v$.staffModel.email.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.email.$errors[0].$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
                                     Phone
                                 </label>
                                 <input
                                     type="text"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    v-model="stationModel.phone"
+                                    v-model="staffModel.phone"
                                 />
                                 <div
-                                    v-if="v$.stationModel.phone.$error"
+                                    v-if="v$.staffModel.phone.$error"
                                     class="text-sm text-red-500"
                                 >
-                                    {{ v$.stationModel.phone.$errors[0].$message }}
+                                    {{
+                                        v$.staffModel.phone.$errors[0].$message
+                                    }}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr class="mt-6 border-b-1 border-blueGray-300" />
 
+                    <h6
+                        class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"
+                    >
+                        Others
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Role
+                                </label>
+                                <v-select
+                                    :options="optionsStore.adminRoles"
+                                    :reduce="role => role.code"
+                                    v-model="staffModel.role"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
+                                <div
+                                    v-if="v$.staffModel.role.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{ v$.staffModel.role.$errors[0].$message }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Status
+                                </label>
+                                <v-select
+                                    :options="optionsStore.adminStatuses"
+                                    :reduce="status => status.code"
+                                    v-model="staffModel.status"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
+                                <div
+                                    v-if="v$.staffModel.status.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.status.$errors[0].$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Station
+                                </label>
+                                <v-select
+                                    :options="stationsStore.allStations"
+                                    :reduce="station => station.id" 
+                                    label="name"
+                                    v-model="staffModel.station_id"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
+                                <div
+                                    v-if="v$.staffModel.station_id.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.station_id.$errors[0]
+                                            .$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    v-model="staffModel.password"
+                                />
+                                <div
+                                    v-if="v$.staffModel.password.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.password.$errors[0]
+                                            .$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+                    <h6
+                        class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"
+                    >
+                        CIC infos
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    CIC Number
+                                </label>
+                                <input
+                                    type="text"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    v-model="staffModel.cic_number"
+                                />
+                                <div
+                                    v-if="v$.staffModel.cic_number.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.cic_number.$errors[0]
+                                            .$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    CIC Front
+                                </label>
+                                <input
+                                    type="file"
+                                    ref="cic_front"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    @change="imageFileChanged('cic_front')"
+                                />
+                                <div
+                                    v-if="v$.staffModel.cic_front.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.cic_front.$errors[0].$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    CIC Back
+                                </label>
+                                <input
+                                    type="file"
+                                    ref="cic_back"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    @change="imageFileChanged('cic_back')"
+                                />
+                                <div
+                                    v-if="v$.staffModel.cic_back.$error"
+                                    class="text-sm text-red-500"
+                                >
+                                    {{
+                                        v$.staffModel.cic_back.$errors[0].$message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- <button
                         class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
                         type="submit"
@@ -248,60 +541,84 @@
                                 fill="currentFill"
                             />
                         </svg>
-                        Update
+                        Create
                     </button> -->
                 </form>
             </div>
         </div>
     </div>
+    <!-- <button @click="test">test</button> -->
 </template>
 
 <script>
 import { useRouter, useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 import useVuelidate from "@vuelidate/core";
-import { required, email, minLength, maxLength, minValue, maxValue } from "@vuelidate/validators";
+import {
+    required,
+    email,
+    minLength,
+    maxLength,
+    minValue,
+    maxValue,
+} from "@vuelidate/validators";
 
+import { useStaffsStore } from "@/admin/services/stores/staffsStore.js";
 import { useStationsStore } from "@/admin/services/stores/stationsStore.js";
-import { useEnumsStore } from "@/admin/services/stores/enumsStore.js";
+import { useOptionsStore } from "@/admin/services/stores/optionsStore.js";
 
 export default {
     beforeRouteEnter(to, from, next) {
-        const stationsStore = useStationsStore();
+        const staffsStore = useStaffsStore();
         // console.log(route.params.id)
-        stationsStore.fetchStation(to.params.id).then(() => next());
+        staffsStore.fetchStaff(to.params.id).then(() => next());
     },
     setup() {
         return {
             router: useRouter(),
             route: useRoute(),
+            staffsStore: useStaffsStore(),
             stationsStore: useStationsStore(),
-            enumsStore: useEnumsStore(),
+            optionsStore: useOptionsStore(),
+            toast: useToast(),
             v$: useVuelidate(),
         };
     },
     mounted() {
-        this.enumsStore.getCities();
-        this.enumsStore.getDistricts(this.stationsStore.station.location.city_id);
-        this.enumsStore.getSubdistricts(this.stationsStore.station.location.district_id);
+        this.optionsStore.getEnums(['genders', 'adminstatuses']);
+        this.optionsStore.getCities();
+        this.optionsStore.getDistricts(this.staffsStore.staff.location.city_id);
+        this.optionsStore.getSubdistricts(
+            this.staffsStore.staff.location.district_id
+        );
     },
     data() {
-        var station = Object.assign({}, this.stationsStore.station);
-        var stationModel = this.stationsStore.station;
+        var staff = Object.assign({}, this.staffsStore.staff);
+        var staffModel = this.staffsStore.staff;
 
         return {
-            station,
-            stationModel,
+            staff,
+            staffModel,
             loading: false,
             errors: [],
         };
     },
     validations() {
         return {
-            stationModel: {
-                name: {
+            staffModel: {
+                first_name: {
                     required,
                     maxLength: maxLength(50),
+                },
+                last_name: {
+                    required,
+                    maxLength: maxLength(50),
+                },
+                dob: {
+                    required,
+                },
+                gender: {
+                    required,
                 },
                 location: {
                     city_id: { required },
@@ -317,19 +634,35 @@ export default {
                     minLength: minLength(9),
                     maxLength: maxLength(15),
                 },
-                capacity: {
+                email: {
                     required,
-                    minValue: minValue(0),
-                    maxValue: maxValue(500),
+                    email,
                 },
+                role: {
+                    required,
+                },
+                status: {
+                    required,
+                },
+                station_id: {
+                    required,
+                },
+                password: {
+                    // required,
+                },
+                cic_number: {
+                    required,
+                    minLength: minLength(9),
+                    maxLength: maxLength(12),
+                },
+                avatar: {},
+                cic_front: {},
+                cic_back: {},
             },
         };
     },
-    created() {
-        // console.log(this.stationModel.location.city)
-    },
     methods: {
-        async updateStationHandler() {
+        async updateStaffHandler() {
             this.loading = true;
 
             await this.v$.$validate();
@@ -339,27 +672,46 @@ export default {
                 return;
             }
 
-            await this.stationsStore
-                .update(this.stationModel)
+            console.log("store");
+
+            this.staffModel.avatar = this.$refs.avatar.files[0];
+            this.staffModel.cic_front = this.$refs.cic_front.files[0];
+            this.staffModel.cic_back = this.$refs.cic_back.files[0];
+
+            await this.staffsStore
+                .update(this.staffModel)
                 .then((response) => console.log(response))
                 .then((response) =>
-                    this.router.push({ name: "Admin.Stations" })
+                    this.router.push({
+                        name: "Admin.Staff.Show",
+                        params: { id: this.staffModel.id },
+                    })
                 )
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    console.log(error);
+                    this.toast.error(error.message);
+                });
             this.loading = false;
         },
         cityChangeHandler() {
-            this.stationModel.location.district_id = null;
-            this.stationModel.location.subdistrict_id = null;
-            this.enumsStore.getDistricts(this.stationModel.location.city_id);
+            this.staffModel.location.district_id = null;
+            this.staffModel.location.subdistrict_id = null;
+            this.optionsStore.getDistricts(this.staffModel.location.city_id);
         },
         districtChangeHandler() {
-            this.stationModel.location.subdistrict_id = null;
-            this.enumsStore.getSubdistricts(
-                this.stationModel.location.district_id
+            this.staffModel.location.subdistrict_id = null;
+            this.optionsStore.getSubdistricts(
+                this.staffModel.location.district_id
             );
         },
         subdistrictChangeHandler() {},
+        imageFileChanged(type = null) {
+            if (type == null) {
+                return;
+            }
+            this.staffModel[type] = this.$refs[type].files[0];
+            console.log();
+        },
     },
 };
 </script>

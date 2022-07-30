@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("Auth", {
         async login(admin) {
             const response = await adminAxios.post("/login", admin);
             // console.log(response);
-            this.storeToken(response.data.token);
+            this.storeToken(response.data);
             return response;
         },
         async getMe() {
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore("Auth", {
                 },
             });
             this.admin = response.data;
-            console.log(response);
+            // console.log(response);
         },
         storeToken(token) {
             this.token = token;

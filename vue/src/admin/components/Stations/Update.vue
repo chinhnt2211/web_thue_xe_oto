@@ -102,18 +102,14 @@
                                 >
                                     City
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.cities"
+                                    :reduce="(city) => city.id"
+                                    label="name"
                                     v-model="stationModel.location.city_id"
-                                    @change="cityChangeHandler"
-                                >
-                                    <option
-                                        v-for="city in enumsStore.cities"
-                                        :value="city.id"
-                                    >
-                                        {{ city.name }}
-                                    </option>
-                                </select>
+                                    @option:selected="cityInputHandler"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="
                                         v$.stationModel.location.city_id.$error
@@ -135,18 +131,14 @@
                                 >
                                     District
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.districts"
+                                    :reduce="(district) => district.id"
+                                    label="name"
                                     v-model="stationModel.location.district_id"
-                                    @change="districtChangeHandler"
-                                >
-                                    <option
-                                        v-for="district in enumsStore.districts"
-                                        :value="district.id"
-                                    >
-                                        {{ district.name }}
-                                    </option>
-                                </select>
+                                    @option:selected="districtInputHandler"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="
                                         v$.stationModel.location.district_id
@@ -169,20 +161,16 @@
                                 >
                                     Subdistrict
                                 </label>
-                                <select
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                <v-select
+                                    :options="optionsStore.subdistricts"
+                                    :reduce="(subdistrict) => subdistrict.id"
+                                    label="name"
                                     v-model="
                                         stationModel.location.subdistrict_id
                                     "
-                                    @change="subdistrictChangeHandler"
-                                >
-                                    <option
-                                        v-for="subdistrict in enumsStore.subdistricts"
-                                        :value="subdistrict.id"
-                                    >
-                                        {{ subdistrict.name }}
-                                    </option>
-                                </select>
+                                    @option:selected="subdistrictInputHandler"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></v-select>
                                 <div
                                     v-if="
                                         v$.stationModel.location.subdistrict_id
@@ -300,12 +288,12 @@ import {
 } from "@vuelidate/validators";
 
 import { useStationsStore } from "@/admin/services/stores/stationsStore.js";
-import { useEnumsStore } from "@/admin/services/stores/enumsStore.js";
+import { useOptionsStore } from "@/admin/services/stores/optionsStore.js";
 
 export default {
-    beforeRouteEnter(to, from, next) {
+    beforeRouteEnter: (to, from, next) => {
         const stationsStore = useStationsStore();
-        // console.log(route.params.id)
+
         stationsStore.fetchStation(to.params.id).then(() => next());
     },
     setup() {
@@ -313,23 +301,23 @@ export default {
             router: useRouter(),
             route: useRoute(),
             stationsStore: useStationsStore(),
-            enumsStore: useEnumsStore(),
+            optionsStore: useOptionsStore(),
             v$: useVuelidate(),
+            toast: useToast(),
         };
     },
     mounted() {
-        this.enumsStore.getCities();
-        this.enumsStore.getDistricts(
+        this.optionsStore.getCities();
+        this.optionsStore.getDistricts(
             this.stationsStore.station.location.city_id
         );
-        this.enumsStore.getSubdistricts(
+        this.optionsStore.getSubdistricts(
             this.stationsStore.station.location.district_id
         );
     },
     data() {
         var station = Object.assign({}, this.stationsStore.station);
         var stationModel = this.stationsStore.station;
-
         return {
             station,
             stationModel,
@@ -366,9 +354,7 @@ export default {
             },
         };
     },
-    created() {
-        // console.log(this.stationModel.location.city)
-    },
+    created() {},
     methods: {
         async updateStationHandler() {
             this.loading = true;
@@ -382,24 +368,27 @@ export default {
 
             await this.stationsStore
                 .update(this.stationModel)
-                .then((response) => console.log(response))
+                // .then((response) => console.log(response))
                 .then((response) =>
                     this.router.push({
-                        name: "Admin.Station.Show",
+                        name: "Admin.Stations.Show",
                         params: { id: this.stationModel.id },
                     })
                 )
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    console.log(error);
+                    this.toast.error("Something wrong happened");
+                });
             this.loading = false;
         },
         cityChangeHandler() {
             this.stationModel.location.district_id = null;
             this.stationModel.location.subdistrict_id = null;
-            this.enumsStore.getDistricts(this.stationModel.location.city_id);
+            this.optionsStore.getDistricts(this.stationModel.location.city_id);
         },
         districtChangeHandler() {
             this.stationModel.location.subdistrict_id = null;
-            this.enumsStore.getSubdistricts(
+            this.optionsStore.getSubdistricts(
                 this.stationModel.location.district_id
             );
         },

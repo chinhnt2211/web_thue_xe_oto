@@ -6,13 +6,13 @@
             <div class="rounded-t bg-white mb-0 px-6 py-6">
                 <div class="text-center flex justify-between">
                     <h6 class="text-blueGray-700 text-xl font-bold">
-                        Station {{ station.name }} - ID {{ station.id }}
+                        Staff {{ staff.name }} - ID {{ staff.id }}
                     </h6>
                     <div>
                         <button
                             class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
-                            @click="destroyStationHandler"
+                            @click="destroyStaffHandler"
                         >
                             Delete
                         </button>
@@ -21,8 +21,8 @@
                             type="button"
                             @click="
                                 this.$router.push({
-                                    name: 'Admin.Stations.Update',
-                                    params: { id: station.id },
+                                    name: 'Admin.Staffs.Update',
+                                    params: { id: staff.id },
                                 })
                             "
                         >
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="flex-auto px-4 lg:px-10 py-10 pt-0 mt-3">
-                <form @submit.prevent="storeStationHandler">
+                <form id="form">
                     <div class="flex flex-wrap">
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
@@ -40,13 +40,12 @@
                                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password"
                                 >
-                                    Name
+                                    First Name
                                 </label>
                                 <div
-                                    type="text"
-                                    class="h-11 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 >
-                                    {{ station.name }}
+                                    {{ staff.first_name }}
                                 </div>
                             </div>
                         </div>
@@ -56,14 +55,56 @@
                                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password"
                                 >
-                                    Capacity
+                                    Last Name
                                 </label>
                                 <div
-                                    type="text"
-                                    class="h-11 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 >
-                                    {{ station.capacity }}
+                                    {{ staff.last_name }}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Birthday
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.dob }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Gender
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.gender }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Avatar
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                ></div>
                             </div>
                         </div>
                     </div>
@@ -84,13 +125,9 @@
                                     City
                                 </label>
                                 <div
-                                    type="text"
-                                    class="h-11 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 >
-                                    {{
-                                        station.location?.city
-                                            ?.name_with_type || ""
-                                    }}
+                                    {{ staff.location.city_id }}
                                 </div>
                             </div>
                         </div>
@@ -103,13 +140,9 @@
                                     District
                                 </label>
                                 <div
-                                    type="text"
-                                    class="h-11 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 >
-                                    {{
-                                        station.location?.district
-                                            ?.name_with_type || ""
-                                    }}
+                                    {{ staff.location.district_id }}
                                 </div>
                             </div>
                         </div>
@@ -122,13 +155,9 @@
                                     Subdistrict
                                 </label>
                                 <div
-                                    type="text"
-                                    class="h-11 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 >
-                                    {{
-                                        station.location?.subdistrict
-                                            ?.name_with_type || ""
-                                    }}
+                                    {{ staff.location.subdistrict_id }}
                                 </div>
                             </div>
                         </div>
@@ -141,10 +170,9 @@
                                     Address
                                 </label>
                                 <div
-                                    type="text"
-                                    class="h-11 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 >
-                                    {{ station.location.address }}
+                                    {{ staff.location.address }}
                                 </div>
                             </div>
                         </div>
@@ -163,69 +191,204 @@
                                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password"
                                 >
+                                    Email
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.email }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
                                     Phone
                                 </label>
                                 <div
-                                    type="text"
-                                    class="h-11 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 >
-                                    {{ station.phone }}
+                                    {{ staff.phone }}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </form>
+                    <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+                    <h6
+                        class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"
+                    >
+                        Others
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Role
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.role }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Status
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.status }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Staff
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.staff_id }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    Password
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.password }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+                    <h6
+                        class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"
+                    >
+                        CIC infos
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    CIC Number
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    {{ staff.cic_number }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    CIC Front
+                                </label>
+                                <div
+                                    type="file"
+                                    ref=""
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    cic_front
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    htmlFor="grid-password"
+                                >
+                                    CIC Back
+                                </label>
+                                <div
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                >
+                                    cic_back
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-// utils
-import { useStationsStore } from "@/admin/services/stores/stationsStore.js";
-import { Warning } from "postcss";
-
-// router
 import { useRouter, useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
+
+import { useStaffsStore } from "@/admin/services/stores/staffsStore.js";
+import { Warning } from "postcss";
 
 export default {
     beforeRouteEnter(to, from, next) {
-        const stationsStore = useStationsStore();
-        // console.log(route.params.id)
-        stationsStore.fetchStation(to.params.id).then(() => next());
+        const staffsStore = useStaffsStore();
+        staffsStore.fetchStaff(to.params.id).then(() => next());
     },
     setup() {
-        const router = useRouter();
-        const route = useRoute();
-        const stationsStore = useStationsStore();
-        // console.log(route.params.id)
-        // stationsStore.fetchStation(route.params.id);
-
         return {
-            router,
-            route,
-            stationsStore,
+            router: useRouter(),
+            route: useRoute(),
+            staffsStore: useStaffsStore(),
+            toast: useToast(),
         };
     },
     data() {
-        var station = this.stationsStore.station;
+        var staff = this.staffsStore.staff;
 
         return {
-            station,
+            staff,
             loading: false,
             errors: [],
         };
     },
     methods: {
-        async destroyStationHandler() {
-            if(!confirm('Delete this station?')) {
+        async destroyStaffHandler() {
+            if (!confirm("Delete this staff?")) {
                 return;
             }
             this.loading = true;
-            await this.stationsStore.destroy(this.stationsStore.currentStation.id);
+            await this.staffsStore.destroy(
+                this.staffsStore.currentStaff.id
+            )
+                .catch(error => this.toast.error('Something wrong happened'));
             this.loading = false;
-            this.router.push({ name: 'Admin.Stations' });
-        }
-    }
+            this.router.push({ name: "Admin.Staffs" });
+        },
+    },
 };
 </script>

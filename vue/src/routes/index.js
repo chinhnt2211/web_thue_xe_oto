@@ -82,7 +82,30 @@ const routes = [
             {
                 path: "/admin/vehicles",
                 name: "Admin.Vehicles",
-                component: () => import("@/admin/views/Vehicles.vue"),
+                redirect: "/admin/vehicles/index",
+                component: () => import("@/admin/views/vehicles.vue"),
+                children: [
+                    {
+                        path: "/admin/vehicles/index",
+                        name: "Admin.Vehicles.Index",
+                        component: () => import("@/admin/components/vehicles/Index.vue"),
+                    },
+                    {
+                        path: "/admin/vehicles/create",
+                        name: "Admin.Vehicles.Create",
+                        component: () => import("@/admin/components/vehicles/Create.vue"),
+                    },
+                    {
+                        path: "/admin/vehicles/:id",
+                        name: "Admin.Vehicles.Show",
+                        component: () => import("@/admin/components/vehicles/Show.vue"),
+                    },
+                    {
+                        path: "/admin/vehicles/:id/update",
+                        name: "Admin.Vehicles.Update",
+                        component: () => import("@/admin/components/vehicles/Update.vue"),
+                    },
+                ]
             },
         ],
     },

@@ -224,27 +224,23 @@
 </template>
 
 <script>
-// UI/UX
-
-// router
 import { useRouter, useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
 
-// utils
 import { useStaffsStore } from "@/admin/services/stores/staffsStore.js";
 
 export default {
     setup() {
-        const router = useRouter();
-        const route = useRoute();
-        const staffsStore = useStaffsStore();
-
-        staffsStore.fetchStaffs();
-
         return {
-            router,
-            route,
-            staffsStore,
+            router: useRouter(),
+            route: useRoute(),
+            toast: useToast(),
+            staffsStore: useStaffsStore(),
         };
+    },
+    mounted() {
+        this.staffsStore.fetchStaffs();
+        // console.log(this.route.params)
     },
     data() {
         return {
@@ -253,13 +249,14 @@ export default {
         };
     },
     components: {},
-    mounted() {
-        // console.log(this.route.params)
-    },
     methods: {
         async changePageHandler(id) {
             this.loading = true;
-            await this.staffsStore.changePage(id);
+            try {
+                await this.staffsStore.changePage(id);
+            } catch (error) {
+                this.toast.error('Something wrong happened');
+            }
             this.loading = false;
         }
     },
